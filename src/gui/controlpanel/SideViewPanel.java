@@ -14,6 +14,7 @@ import java.awt.*;
  */
 public class SideViewPanel extends JPanel {
 
+    private final DataManager dataManager = DataManager.getInstance();
     private JTree tree;
 
     public SideViewPanel() {
@@ -24,7 +25,6 @@ public class SideViewPanel extends JPanel {
     }
 
     public void buildTree() {
-        DataManager dataManager = DataManager.getInstance();
         GroupModel rootGroup = dataManager.getRootGroup();
         DefaultMutableTreeNode root = buildTreeNode(rootGroup);
 

@@ -38,4 +38,23 @@ public class DataManager {
     public GroupModel getRootGroup() {
         return rootGroup;
     }
+
+    private GroupModel recursivelyFindGroupById(String id, GroupModel root) {
+        if (root.getId().equals(id)) {
+            return root;
+        }
+
+        for (GroupModel subgroup : root.getSubgroups()) {
+            GroupModel result = recursivelyFindGroupById(id, subgroup);
+            if (result != null)
+                return result;
+        }
+
+        return null;
+    }
+
+    public GroupModel findGroupById(String id) {
+        GroupModel rootGroup = getRootGroup();
+        return recursivelyFindGroupById(id, rootGroup);
+    }
 }

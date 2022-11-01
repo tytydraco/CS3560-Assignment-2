@@ -2,6 +2,7 @@ package gui.controlpanel;
 
 import data.local.DataManager;
 import data.models.GroupModel;
+import data.models.UserModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.awt.*;
  * Presents the configuration view.
  */
 public class ManagePanel extends JPanel {
+    private final DataManager dataManager = DataManager.getInstance();
     private Runnable onRefreshListener;
     private Runnable onOpenUserViewListener;
 
@@ -28,24 +30,13 @@ public class ManagePanel extends JPanel {
             };
 
             JOptionPane.showConfirmDialog(null, request);
-            System.out.println(userIdField.getText());
-            System.out.println(groupIdField.getText());
-            // TODO: add new user and refresh
+
+            addUser(userIdField.getText(), groupIdField.getText());
+
             if (onRefreshListener != null)
                 onRefreshListener.run();
         });
         add(addUserButton);
-
-        JButton addGroupButton = new JButton("Add group");
-        addGroupButton.addActionListener(actionEvent -> {
-            String id = JOptionPane.showInputDialog("Group ID");
-            System.out.println(id);
-            DataManager.getInstance().getRootGroup().addSubgroup(new GroupModel(id));
-            // TODO: add new group and refresh
-            if (onRefreshListener != null)
-                onRefreshListener.run();
-        });
-        add(addGroupButton);
 
         JButton openUserViewButton = new JButton("Open user view");
         openUserViewButton.addActionListener(actionEvent -> {
@@ -53,6 +44,21 @@ public class ManagePanel extends JPanel {
                 onOpenUserViewListener.run();
         });
         add(openUserViewButton);
+    }
+
+    private void addUser(String userId, String groupId) {
+        UserModel user = new UserModel(userId);
+        GroupModel group;
+
+        if (groupId.isEmpty()) {
+            group = dataManager.getRootGroup();
+        } else {
+            group = dataManager.findGroupById(groupId);
+        }
+
+        if (group != null) {
+            group.addUser(user);
+        }
     }
 
     public void setOnRefreshListener(Runnable onRefreshListener) {
