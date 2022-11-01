@@ -29,7 +29,7 @@ public class ManagePanel extends JPanel {
                     "Group ID", groupIdField,
             };
 
-            JOptionPane.showConfirmDialog(null, request);
+            JOptionPane.showConfirmDialog(null, request, "Add User", JOptionPane.OK_CANCEL_OPTION);
 
             addUser(userIdField.getText(), groupIdField.getText());
 
@@ -37,6 +37,24 @@ public class ManagePanel extends JPanel {
                 onRefreshListener.run();
         });
         add(addUserButton);
+
+        JButton addGroupButton = new JButton("Add group");
+        addGroupButton.addActionListener(actionEvent -> {
+            JTextField groupIdField = new JTextField();
+            JTextField parentGroupIdField = new JTextField();
+            Object[] request = {
+                    "Group ID", groupIdField,
+                    "Parent Group ID", parentGroupIdField,
+            };
+
+            JOptionPane.showConfirmDialog(null, request, "Add Group", JOptionPane.OK_CANCEL_OPTION);
+
+            addGroup(groupIdField.getText(), parentGroupIdField.getText());
+
+            if (onRefreshListener != null)
+                onRefreshListener.run();
+        });
+        add(addGroupButton);
 
         JButton openUserViewButton = new JButton("Open user view");
         openUserViewButton.addActionListener(actionEvent -> {
@@ -58,6 +76,21 @@ public class ManagePanel extends JPanel {
 
         if (group != null) {
             group.addUser(user);
+        }
+    }
+
+    private void addGroup(String groupId, String parentGroupId) {
+        GroupModel group = new GroupModel(groupId);
+        GroupModel parentGroup;
+
+        if (parentGroupId.isEmpty()) {
+            parentGroup = dataManager.getRootGroup();
+        } else {
+            parentGroup = dataManager.findGroupById(parentGroupId);
+        }
+
+        if (parentGroup != null) {
+            parentGroup.addSubgroup(group);
         }
     }
 

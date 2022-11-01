@@ -42,6 +42,7 @@ public class SideViewPanel extends JPanel {
                         setText(((UserModel) userValue).getId());
                     }
 
+                    // TODO: also set picture to always be folder even if no child nodes
                     if (userValue instanceof GroupModel) {
                         setText(((GroupModel) userValue).getId());
                     }
