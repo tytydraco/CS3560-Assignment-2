@@ -1,6 +1,7 @@
 package data.local;
 
 import data.models.GroupModel;
+import data.models.UserModel;
 
 /**
  * A singleton that holds and manages users and groups.
@@ -11,7 +12,16 @@ public class DataManager {
     private final GroupModel rootGroup;
 
     private DataManager() {
-        rootGroup = new GroupModel();
+        rootGroup = new GroupModel("Root");
+        rootGroup.addUser(new UserModel("test1"));
+        rootGroup.addUser(new UserModel("test2"));
+        rootGroup.addUser(new UserModel("test3"));
+
+        GroupModel subgroup1 = new GroupModel("sub1");
+        subgroup1.addUser(new UserModel("test4"));
+        subgroup1.addUser(new UserModel("test5"));
+        subgroup1.addUser(new UserModel("test6"));
+        rootGroup.addSubgroup(subgroup1);
     }
 
     /**

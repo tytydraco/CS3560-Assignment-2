@@ -9,11 +9,11 @@ import java.util.HashSet;
 public class UserModel {
     private String id;
 
-    private HashSet<String> followerIds;
+    private HashSet<String> followerIds = new HashSet<>();
 
-    private HashSet<String> followingIds;
+    private HashSet<String> followingIds = new HashSet<>();
 
-    private ArrayList<Tweet> feed;
+    private ArrayList<Tweet> feed = new ArrayList<>();
 
     public UserModel(String id) {
         this.id = id;
