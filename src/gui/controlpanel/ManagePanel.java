@@ -1,4 +1,4 @@
-package gui;
+package gui.controlpanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,6 +7,9 @@ import java.awt.*;
  * Presents the configuration view.
  */
 public class ManagePanel extends JPanel {
+    private Runnable onRefreshListener;
+    private Runnable onOpenUserViewListener;
+
     public ManagePanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(500, 500));
@@ -25,6 +28,8 @@ public class ManagePanel extends JPanel {
             System.out.println(userIdField.getText());
             System.out.println(groupIdField.getText());
             // TODO: add new user and refresh
+            if (onRefreshListener != null)
+                onRefreshListener.run();
         });
         add(addUserButton);
 
@@ -33,13 +38,24 @@ public class ManagePanel extends JPanel {
             String id = JOptionPane.showInputDialog("Group ID");
             System.out.println(id);
             // TODO: add new group and refresh
+            if (onRefreshListener != null)
+                onRefreshListener.run();
         });
         add(addGroupButton);
 
         JButton openUserViewButton = new JButton("Open user view");
         openUserViewButton.addActionListener(actionEvent -> {
-            // TODO: navigate to user view
+            if (onOpenUserViewListener != null)
+                onOpenUserViewListener.run();
         });
         add(openUserViewButton);
+    }
+
+    public void setOnRefreshListener(Runnable onRefreshListener) {
+        this.onRefreshListener = onRefreshListener;
+    }
+
+    public void setOnOpenUserViewListener(Runnable onOpenUserViewListener) {
+        this.onOpenUserViewListener = onOpenUserViewListener;
     }
 }

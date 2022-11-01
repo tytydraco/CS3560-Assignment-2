@@ -1,4 +1,4 @@
-package gui;
+package gui.controlpanel;
 
 import data.local.DataManager;
 import data.models.GroupModel;
