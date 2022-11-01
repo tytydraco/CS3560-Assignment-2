@@ -52,10 +52,12 @@ public class SideViewPanel extends JPanel {
 
     public UserModel getSelectedUser() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        Object userObject = node.getUserObject();
-
-        if (userObject instanceof UserModel)
-            return (UserModel) userObject;
+        
+        if (node != null) {
+            Object userObject = node.getUserObject();
+            if (userObject instanceof UserModel)
+                return (UserModel) userObject;
+        }
 
         return null;
     }

@@ -17,6 +17,7 @@ public class UserView {
         frame = new JFrame();
         frame.setResizable(false);
         frame.setSize(400, 500);
+        frame.setTitle(user.getId());
     }
 
     public void present() {
