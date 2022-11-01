@@ -8,8 +8,17 @@ import java.awt.*;
  */
 public class ManagePanel extends JPanel {
     public ManagePanel() {
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(500, 500));
         setBorder(BorderFactory.createTitledBorder("Manage"));
+
+        JButton addUserButton = new JButton("Add user");
+        add(addUserButton);
+
+        JButton addGroupButton = new JButton("Add group");
+        add(addGroupButton);
+
+        JButton openUserViewButton = new JButton("Open user view");
+        add(openUserViewButton);
     }
 }
