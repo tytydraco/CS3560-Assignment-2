@@ -1,5 +1,8 @@
 package gui.controlpanel;
 
+import data.local.DataManager;
+import data.models.GroupModel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -37,6 +40,7 @@ public class ManagePanel extends JPanel {
         addGroupButton.addActionListener(actionEvent -> {
             String id = JOptionPane.showInputDialog("Group ID");
             System.out.println(id);
+            DataManager.getInstance().getRootGroup().addSubgroup(new GroupModel(id));
             // TODO: add new group and refresh
             if (onRefreshListener != null)
                 onRefreshListener.run();

@@ -14,13 +14,16 @@ import java.awt.*;
  */
 public class SideViewPanel extends JPanel {
 
-    private final JTree tree;
+    private JTree tree;
 
     public SideViewPanel() {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(300, 500));
         setBorder(BorderFactory.createTitledBorder("View"));
+        buildTree();
+    }
 
+    public void buildTree() {
         DataManager dataManager = DataManager.getInstance();
         GroupModel rootGroup = dataManager.getRootGroup();
         DefaultMutableTreeNode root = buildTreeNode(rootGroup);
@@ -47,12 +50,19 @@ public class SideViewPanel extends JPanel {
             }
         });
 
+        removeAll();
         add(tree);
+    }
+
+    public void refresh() {
+        buildTree();
+        validate();
+        repaint();
     }
 
     public UserModel getSelectedUser() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        
+
         if (node != null) {
             Object userObject = node.getUserObject();
             if (userObject instanceof UserModel)

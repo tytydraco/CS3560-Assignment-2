@@ -21,6 +21,7 @@ public class ControlPanel {
         frame.add(sideViewPanel, BorderLayout.WEST);
 
         ManagePanel managePanel = new ManagePanel();
+        managePanel.setOnRefreshListener(sideViewPanel::refresh);
         managePanel.setOnOpenUserViewListener(() -> {
             UserModel selectedUser = sideViewPanel.getSelectedUser();
 
