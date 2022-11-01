@@ -1,34 +1,42 @@
 package data.models;
 
+import java.util.ArrayList;
+
 /**
  * Holds the group information.
  */
 public class GroupModel {
-    private UserModel[] users;
-    private GroupModel[] subgroups;
+    private ArrayList<UserModel> users;
+    private ArrayList<GroupModel> subgroups;
 
-    public GroupModel(UserModel[] users) {
+    public GroupModel(ArrayList<UserModel> users) {
         this.users = users;
     }
 
-    public GroupModel(UserModel[] users, GroupModel[] subgroups) {
+    public GroupModel(ArrayList<UserModel> users, ArrayList<GroupModel> subgroups) {
         this.users = users;
         this.subgroups = subgroups;
     }
 
     public UserModel[] getUsers() {
-        return users;
+        UserModel[] fixedUsers = new UserModel[users.size()];
+        return users.toArray(fixedUsers);
     }
 
-    public void setUsers(UserModel[] users) {
+    public void setUsers(ArrayList<UserModel> users) {
         this.users = users;
     }
 
-    public GroupModel[] getSubgroups() {
-        return subgroups;
+    public void addUser(UserModel user) {
+
     }
 
-    public void setSubgroups(GroupModel[] subgroups) {
+    public GroupModel[] getSubgroups() {
+        GroupModel[] fixedSubgroups = new GroupModel[subgroups.size()];
+        return subgroups.toArray(fixedSubgroups);
+    }
+
+    public void setSubgroups(ArrayList<GroupModel> subgroups) {
         this.subgroups = subgroups;
     }
 }

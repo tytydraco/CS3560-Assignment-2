@@ -1,5 +1,6 @@
 package data.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -12,7 +13,7 @@ public class UserModel {
 
     private HashSet<String> followingIds;
 
-    private Tweet[] feed;
+    private ArrayList<Tweet> feed;
 
     public UserModel(String id) {
         this.id = id;
@@ -59,10 +60,11 @@ public class UserModel {
     }
 
     public Tweet[] getFeed() {
-        return feed;
+        Tweet[] fixedFeed = new Tweet[feed.size()];
+        return feed.toArray(fixedFeed);
     }
 
-    public void setFeed(Tweet[] feed) {
+    public void setFeed(ArrayList<Tweet> feed) {
         this.feed = feed;
     }
 }
