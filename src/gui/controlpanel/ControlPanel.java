@@ -1,5 +1,6 @@
 package gui.controlpanel;
 
+import data.models.UserModel;
 import gui.user.UserView;
 
 import javax.swing.*;
@@ -21,8 +22,13 @@ public class ControlPanel {
 
         ManagePanel managePanel = new ManagePanel();
         managePanel.setOnOpenUserViewListener(() -> {
-            // TODO: pass selected user
-            UserView userView = new UserView(null);
+            UserModel selectedUser = sideViewPanel.getSelectedUser();
+
+            // Ignore if no user is selected.
+            if (selectedUser == null)
+                return;
+
+            UserView userView = new UserView(selectedUser);
             userView.present();
         });
         frame.add(managePanel, BorderLayout.EAST);
