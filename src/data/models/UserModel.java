@@ -43,8 +43,9 @@ public class UserModel {
         this.followerIds.remove(id);
     }
 
-    public HashSet<String> getFollowingIds() {
-        return followingIds;
+    public String[] getFollowingIds() {
+        String[] fixedFollowingIds = new String[followingIds.size()];
+        return followingIds.toArray(fixedFollowingIds);
     }
 
     public void setFollowingIds(HashSet<String> followingIds) {

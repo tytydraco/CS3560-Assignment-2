@@ -13,7 +13,10 @@ public class DataManager {
 
     private DataManager() {
         rootGroup = new GroupModel("Root");
-        rootGroup.addUser(new UserModel("test1"));
+        UserModel test1 = new UserModel("test1");
+        test1.addFollowing("test2");
+        test1.addFollowing("test3");
+        rootGroup.addUser(test1);
         rootGroup.addUser(new UserModel("test2"));
         rootGroup.addUser(new UserModel("test3"));
 

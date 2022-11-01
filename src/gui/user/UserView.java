@@ -18,6 +18,8 @@ public class UserView {
         frame.setResizable(false);
         frame.setSize(400, 500);
         frame.setTitle(user.getId());
+
+        frame.add(new FollowingPanel(user));
     }
 
     public void present() {
