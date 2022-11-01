@@ -9,6 +9,9 @@ public class GroupModel {
     private ArrayList<UserModel> users;
     private ArrayList<GroupModel> subgroups;
 
+    public GroupModel() {
+    }
+
     public GroupModel(ArrayList<UserModel> users) {
         this.users = users;
     }
@@ -28,7 +31,7 @@ public class GroupModel {
     }
 
     public void addUser(UserModel user) {
-
+        users.add(user);
     }
 
     public GroupModel[] getSubgroups() {
@@ -38,5 +41,9 @@ public class GroupModel {
 
     public void setSubgroups(ArrayList<GroupModel> subgroups) {
         this.subgroups = subgroups;
+    }
+
+    public void addSubgroup(GroupModel subgroup) {
+        this.subgroups.add(subgroup);
     }
 }

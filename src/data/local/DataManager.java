@@ -1,12 +1,17 @@
 package data.local;
 
+import data.models.GroupModel;
+
 /**
  * A singleton that holds and manages users and groups.
  */
 public class DataManager {
     private static DataManager instance;
 
+    private final GroupModel rootGroup;
+
     private DataManager() {
+        rootGroup = new GroupModel();
     }
 
     /**
@@ -20,5 +25,7 @@ public class DataManager {
         return instance;
     }
 
-
+    public GroupModel getRootGroup() {
+        return rootGroup;
+    }
 }
