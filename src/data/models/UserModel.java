@@ -9,7 +9,6 @@ import java.util.HashSet;
 public class UserModel {
     private String id;
 
-    // TODO: track entire users, not IDs, removes need to search
     private HashSet<UserModel> followers = new HashSet<>();
 
     private HashSet<UserModel> following = new HashSet<>();
