@@ -15,9 +15,29 @@ public class FollowingPanel extends JPanel {
         setPreferredSize(new Dimension(500, 500));
         setBorder(BorderFactory.createTitledBorder("Following"));
 
+        buildUI();
+    }
+
+    private void buildUI() {
+        removeAll();
+
         JList<String> list = new JList<>(user.getFollowingIds());
         JScrollPane listScroller = new JScrollPane(list);
         add(listScroller);
+
+        JButton addFollowingButton = new JButton("Follow user");
+        addFollowingButton.addActionListener(actionEvent -> {
+            String userId = JOptionPane.showInputDialog("User ID");
+            user.addFollowing(userId);
+            refresh();
+        });
+        add(addFollowingButton);
+    }
+
+    public void refresh() {
+        buildUI();
+        validate();
+        repaint();
     }
 
     public UserModel getUser() {
