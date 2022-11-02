@@ -1,14 +1,14 @@
 package data.models;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.TreeSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Feed {
     private final TreeSet<Tweet> tweets = new TreeSet<>(Comparator.comparing(Tweet::getDate));
 
-    private final ArrayList<Watcher> watchers = new ArrayList<>();
+    private final CopyOnWriteArrayList<Watcher> watchers = new CopyOnWriteArrayList<>();
 
     public Tweet[] getTweets() {
         Tweet[] fixedTweets = new Tweet[tweets.size()];
@@ -39,11 +39,7 @@ public class Feed {
     }
 
     private void notifyWatchers() {
-        Watcher[] fixedWatchers = new Watcher[watchers.size()];
-        fixedWatchers = watchers.toArray(fixedWatchers);
-        for (Watcher watcher : fixedWatchers) {
-            watcher.update();
-        }
+        watchers.forEach(Watcher::update);
     }
 
     /**

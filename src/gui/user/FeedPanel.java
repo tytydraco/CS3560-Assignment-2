@@ -22,23 +22,30 @@ public class FeedPanel extends JPanel {
     }
 
     /**
+     * Remove this observer from all current user feeds.
+     */
+    public void removeAllWatchers() {
+        for (User following : followingWatching) {
+            following.getFeed().removeWatcher(this::refresh);
+        }
+        followingWatching.clear();
+    }
+
+    /**
      * Register watchers on all following user feeds so that we can refresh if they are changed.
      */
     private void updateWatchers() {
-        for (User following : followingWatching) {
-            following.getFeed().removeWatcher(feedUpdateWatcher);
-        }
+        removeAllWatchers();
 
-        followingWatching.clear();
         for (User following : user.getFollowing()) {
             Feed feed = following.getFeed();
-            feed.addWatcher(feedUpdateWatcher);
+            feed.addWatcher(this::refresh);
             followingWatching.add(following);
         }
 
         // Watch this user's feed as well.
         Feed feed = user.getFeed();
-        feed.addWatcher(feedUpdateWatcher);
+        feed.addWatcher(this::refresh);
         followingWatching.add(user);
     }
 
@@ -72,7 +79,7 @@ public class FeedPanel extends JPanel {
             user.getFeed().addTweet(new Tweet(content, user));
         });
         add(addTweetButton);
-    }    private final Feed.Watcher feedUpdateWatcher = this::refresh;
+    }
 
     public void refresh() {
         buildUI();
@@ -83,8 +90,6 @@ public class FeedPanel extends JPanel {
     public User getUser() {
         return user;
     }
-
-
 
 
 }
