@@ -6,22 +6,21 @@ import java.util.Collections;
 /**
  * Holds the group information.
  */
-public class Group {
+public class Group extends Identifiable {
     private final ArrayList<User> users = new ArrayList<>();
     private final ArrayList<Group> subgroups = new ArrayList<>();
-    private String id;
 
     public Group(String id) {
-        this.id = id;
+        super(id);
     }
 
     public Group(String id, User[] users) {
-        this.id = id;
+        super(id);
         setUsers(users);
     }
 
     public Group(String id, User[] users, Group[] subgroups) {
-        this.id = id;
+        super(id);
         setUsers(users);
         setSubgroups(subgroups);
     }
@@ -52,13 +51,5 @@ public class Group {
 
     public void addSubgroup(Group subgroup) {
         this.subgroups.add(subgroup);
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }

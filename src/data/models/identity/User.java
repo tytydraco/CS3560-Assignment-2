@@ -7,22 +7,13 @@ import java.util.HashSet;
 /**
  * Holds the user information.
  */
-public class User {
+public class User extends Identifiable {
     private final Feed feed = new Feed();
-    private String id;
     private HashSet<User> followers = new HashSet<>();
     private HashSet<User> following = new HashSet<>();
 
     public User(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        super(id);
     }
 
     public HashSet<User> getFollowers() {
