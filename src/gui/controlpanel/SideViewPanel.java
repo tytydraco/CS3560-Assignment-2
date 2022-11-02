@@ -2,6 +2,7 @@ package gui.controlpanel;
 
 import data.local.DataManager;
 import data.models.identity.Group;
+import data.models.identity.Identifiable;
 import data.models.identity.User;
 
 import javax.swing.*;
@@ -34,18 +35,15 @@ public class SideViewPanel extends JPanel {
             public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
                 super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
                 if (value instanceof DefaultMutableTreeNode) {
-                    // Set the name of the tree cell to the ID if it is a user or group.
-                    // TODO: replace with OOP method, common parent class
                     Object userValue = ((DefaultMutableTreeNode) value).getUserObject();
+                    
+                    // Use common parent class to get ID.
+                    if (userValue instanceof Identifiable)
+                        setText(((Identifiable) userValue).getId());
 
-                    if (userValue instanceof User) {
-                        setText(((User) userValue).getId());
-                    }
-
-                    if (userValue instanceof Group) {
-                        setText(((Group) userValue).getId());
+                    // Groups should always be a directory icon.
+                    if (userValue instanceof Group)
                         setIcon(UIManager.getIcon("FileView.directoryIcon"));
-                    }
                 }
                 return this;
             }
