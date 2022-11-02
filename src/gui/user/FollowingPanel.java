@@ -12,7 +12,7 @@ public class FollowingPanel extends JPanel {
         this.user = user;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setPreferredSize(new Dimension(500, 500));
+        setPreferredSize(new Dimension(400, 200));
         setBorder(BorderFactory.createTitledBorder("Following"));
 
         buildUI();

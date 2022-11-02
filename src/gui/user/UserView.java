@@ -3,6 +3,7 @@ package gui.user;
 import data.models.UserModel;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The user details page.
@@ -19,7 +20,8 @@ public class UserView {
         frame.setSize(400, 500);
         frame.setTitle(user.getId());
 
-        frame.add(new FollowingPanel(user));
+        frame.add(new FollowingPanel(user), BorderLayout.NORTH);
+        frame.add(new FeedPanel(user));
     }
 
     public void present() {
