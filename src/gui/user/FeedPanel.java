@@ -34,7 +34,7 @@ public class FeedPanel extends JPanel {
         JButton addTweetButton = new JButton("Add Tweet");
         addTweetButton.addActionListener(actionEvent -> {
             String content = JOptionPane.showInputDialog("Content");
-            //user.postTweet(userId);
+            user.postTweet(new Tweet(content));
             refresh();
         });
         add(addTweetButton);

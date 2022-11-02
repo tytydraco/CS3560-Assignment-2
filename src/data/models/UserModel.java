@@ -68,4 +68,8 @@ public class UserModel {
     public void setFeed(ArrayList<Tweet> feed) {
         this.feed = feed;
     }
+
+    public void postTweet(Tweet tweet) {
+        feed.add(tweet);
+    }
 }

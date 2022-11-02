@@ -6,7 +6,7 @@ package data.models;
 public class Tweet {
     private String content;
 
-    Tweet(String content) {
+    public Tweet(String content) {
         this.content = content;
     }
 
