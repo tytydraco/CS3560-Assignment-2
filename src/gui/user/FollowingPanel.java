@@ -1,20 +1,20 @@
 package gui.user;
 
 import data.local.DataManager;
-import data.models.UserModel;
+import data.models.identity.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
 public class FollowingPanel extends JPanel {
-    private final UserModel user;
+    private final User user;
 
     private final DataManager dataManager = DataManager.getInstance();
 
     private Runnable onRefreshListener;
 
-    public FollowingPanel(UserModel user) {
+    public FollowingPanel(User user) {
         this.user = user;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -25,8 +25,8 @@ public class FollowingPanel extends JPanel {
     }
 
     private String[] getFollowingIds() {
-        UserModel[] following = user.getFollowing();
-        return Arrays.stream(following).map(UserModel::getId).toArray(String[]::new);
+        User[] following = user.getFollowing();
+        return Arrays.stream(following).map(User::getId).toArray(String[]::new);
     }
 
     private void buildUI() {
@@ -48,7 +48,7 @@ public class FollowingPanel extends JPanel {
 
     private void followUser(String userId) {
         // Ensure this user exists.
-        UserModel followedUser = dataManager.findUserById(userId);
+        User followedUser = dataManager.findUserById(userId);
         if (followedUser == null)
             return;
 
@@ -68,7 +68,7 @@ public class FollowingPanel extends JPanel {
             onRefreshListener.run();
     }
 
-    public UserModel getUser() {
+    public User getUser() {
         return user;
     }
 

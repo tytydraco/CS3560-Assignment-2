@@ -1,7 +1,7 @@
 package data.local;
 
-import data.models.GroupModel;
-import data.models.UserModel;
+import data.models.identity.Group;
+import data.models.identity.User;
 
 /**
  * A singleton that holds and manages users and groups.
@@ -9,15 +9,15 @@ import data.models.UserModel;
 public class DataManager {
     private static DataManager instance;
 
-    private final GroupModel rootGroup;
+    private final Group rootGroup;
 
     private DataManager() {
-        UserModel test1 = new UserModel("test1");
-        UserModel test2 = new UserModel("test2");
-        UserModel test3 = new UserModel("test3");
-        UserModel test4 = new UserModel("test4");
-        UserModel test5 = new UserModel("test5");
-        UserModel test6 = new UserModel("test6");
+        User test1 = new User("test1");
+        User test2 = new User("test2");
+        User test3 = new User("test3");
+        User test4 = new User("test4");
+        User test5 = new User("test5");
+        User test6 = new User("test6");
 
         test1.addFollowing(test2);
         test1.addFollowing(test3);
@@ -29,12 +29,12 @@ public class DataManager {
         //test5.getFeed().addTweet(new Tweet("Hello from test5!"));
         //test6.getFeed().addTweet(new Tweet("Hello from test6!"));
 
-        rootGroup = new GroupModel("Root");
+        rootGroup = new Group("Root");
         rootGroup.addUser(test1);
         rootGroup.addUser(test2);
         rootGroup.addUser(test3);
 
-        GroupModel subgroup1 = new GroupModel("sub1");
+        Group subgroup1 = new Group("sub1");
         subgroup1.addUser(test4);
         subgroup1.addUser(test5);
         subgroup1.addUser(test6);
@@ -52,17 +52,17 @@ public class DataManager {
         return instance;
     }
 
-    public GroupModel getRootGroup() {
+    public Group getRootGroup() {
         return rootGroup;
     }
 
-    private GroupModel recursivelyFindGroupById(String id, GroupModel root) {
+    private Group recursivelyFindGroupById(String id, Group root) {
         if (root.getId().equals(id)) {
             return root;
         }
 
-        for (GroupModel subgroup : root.getSubgroups()) {
-            GroupModel result = recursivelyFindGroupById(id, subgroup);
+        for (Group subgroup : root.getSubgroups()) {
+            Group result = recursivelyFindGroupById(id, subgroup);
             if (result != null)
                 return result;
         }
@@ -70,19 +70,19 @@ public class DataManager {
         return null;
     }
 
-    public GroupModel findGroupById(String id) {
-        GroupModel rootGroup = getRootGroup();
+    public Group findGroupById(String id) {
+        Group rootGroup = getRootGroup();
         return recursivelyFindGroupById(id, rootGroup);
     }
 
-    private UserModel recursivelyFindUserById(String id, GroupModel root) {
-        for (UserModel user : root.getUsers()) {
+    private User recursivelyFindUserById(String id, Group root) {
+        for (User user : root.getUsers()) {
             if (user.getId().equals(id))
                 return user;
         }
 
-        for (GroupModel subgroup : root.getSubgroups()) {
-            UserModel result = recursivelyFindUserById(id, subgroup);
+        for (Group subgroup : root.getSubgroups()) {
+            User result = recursivelyFindUserById(id, subgroup);
             if (result != null)
                 return result;
         }
@@ -90,8 +90,8 @@ public class DataManager {
         return null;
     }
 
-    public UserModel findUserById(String id) {
-        GroupModel rootGroup = getRootGroup();
+    public User findUserById(String id) {
+        Group rootGroup = getRootGroup();
         return recursivelyFindUserById(id, rootGroup);
     }
 }

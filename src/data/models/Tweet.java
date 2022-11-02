@@ -1,5 +1,7 @@
 package data.models;
 
+import data.models.identity.User;
+
 import java.util.Date;
 
 /**
@@ -12,15 +14,15 @@ public class Tweet {
 
     private Date date;
 
-    private UserModel user;
+    private User user;
 
-    public Tweet(String content, UserModel user) {
+    public Tweet(String content, User user) {
         this.content = content;
         this.user = user;
         this.date = new Date();
     }
 
-    public Tweet(String content, UserModel user, Date date) {
+    public Tweet(String content, User user, Date date) {
         this.content = content;
         this.user = user;
         this.date = date;
@@ -46,11 +48,11 @@ public class Tweet {
         this.date = date;
     }
 
-    public UserModel getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserModel user) {
+    public void setUser(User user) {
         this.user = user;
     }
 }

@@ -1,8 +1,8 @@
 package gui.controlpanel;
 
 import data.local.DataManager;
-import data.models.GroupModel;
-import data.models.UserModel;
+import data.models.identity.Group;
+import data.models.identity.User;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -25,7 +25,7 @@ public class SideViewPanel extends JPanel {
     }
 
     public void buildTree() {
-        GroupModel rootGroup = dataManager.getRootGroup();
+        Group rootGroup = dataManager.getRootGroup();
         DefaultMutableTreeNode root = buildTreeNode(rootGroup);
 
         tree = new JTree(root);
@@ -38,12 +38,12 @@ public class SideViewPanel extends JPanel {
                     // TODO: replace with OOP method, common parent class
                     Object userValue = ((DefaultMutableTreeNode) value).getUserObject();
 
-                    if (userValue instanceof UserModel) {
-                        setText(((UserModel) userValue).getId());
+                    if (userValue instanceof User) {
+                        setText(((User) userValue).getId());
                     }
 
-                    if (userValue instanceof GroupModel) {
-                        setText(((GroupModel) userValue).getId());
+                    if (userValue instanceof Group) {
+                        setText(((Group) userValue).getId());
                         setIcon(UIManager.getIcon("FileView.directoryIcon"));
                     }
                 }
@@ -61,13 +61,13 @@ public class SideViewPanel extends JPanel {
         repaint();
     }
 
-    public UserModel getSelectedUser() {
+    public User getSelectedUser() {
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
 
         if (node != null) {
             Object userObject = node.getUserObject();
-            if (userObject instanceof UserModel)
-                return (UserModel) userObject;
+            if (userObject instanceof User)
+                return (User) userObject;
         }
 
         return null;
@@ -76,13 +76,13 @@ public class SideViewPanel extends JPanel {
     /**
      * Build the tree nodes from the root group.
      */
-    private DefaultMutableTreeNode buildTreeNode(GroupModel group) {
+    private DefaultMutableTreeNode buildTreeNode(Group group) {
         DefaultMutableTreeNode topNode = new DefaultMutableTreeNode(group);
-        for (UserModel user : group.getUsers()) {
+        for (User user : group.getUsers()) {
             topNode.add(new DefaultMutableTreeNode(user));
         }
 
-        for (GroupModel subgroup : group.getSubgroups()) {
+        for (Group subgroup : group.getSubgroups()) {
             DefaultMutableTreeNode subgroupNode = buildTreeNode(subgroup);
             topNode.add(subgroupNode);
         }

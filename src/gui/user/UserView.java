@@ -1,6 +1,6 @@
 package gui.user;
 
-import data.models.UserModel;
+import data.models.identity.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +10,9 @@ import java.awt.*;
  */
 public class UserView {
     private final JFrame frame;
-    private final UserModel user;
+    private final User user;
 
-    public UserView(UserModel user) {
+    public UserView(User user) {
         this.user = user;
 
         frame = new JFrame();
@@ -32,7 +32,7 @@ public class UserView {
         frame.setVisible(true);
     }
 
-    public UserModel getUser() {
+    public User getUser() {
         return user;
     }
 }

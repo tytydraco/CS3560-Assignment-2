@@ -1,4 +1,4 @@
-package data.models;
+package data.models.identity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,51 +6,51 @@ import java.util.Collections;
 /**
  * Holds the group information.
  */
-public class GroupModel {
-    private final ArrayList<UserModel> users = new ArrayList<>();
-    private final ArrayList<GroupModel> subgroups = new ArrayList<>();
+public class Group {
+    private final ArrayList<User> users = new ArrayList<>();
+    private final ArrayList<Group> subgroups = new ArrayList<>();
     private String id;
 
-    public GroupModel(String id) {
+    public Group(String id) {
         this.id = id;
     }
 
-    public GroupModel(String id, UserModel[] users) {
+    public Group(String id, User[] users) {
         this.id = id;
         setUsers(users);
     }
 
-    public GroupModel(String id, UserModel[] users, GroupModel[] subgroups) {
+    public Group(String id, User[] users, Group[] subgroups) {
         this.id = id;
         setUsers(users);
         setSubgroups(subgroups);
     }
 
-    public UserModel[] getUsers() {
-        UserModel[] fixedUsers = new UserModel[users.size()];
+    public User[] getUsers() {
+        User[] fixedUsers = new User[users.size()];
         return users.toArray(fixedUsers);
     }
 
-    public void setUsers(UserModel[] users) {
+    public void setUsers(User[] users) {
         this.users.clear();
         Collections.addAll(this.users, users);
     }
 
-    public void addUser(UserModel user) {
+    public void addUser(User user) {
         users.add(user);
     }
 
-    public GroupModel[] getSubgroups() {
-        GroupModel[] fixedSubgroups = new GroupModel[subgroups.size()];
+    public Group[] getSubgroups() {
+        Group[] fixedSubgroups = new Group[subgroups.size()];
         return subgroups.toArray(fixedSubgroups);
     }
 
-    public void setSubgroups(GroupModel[] subgroups) {
+    public void setSubgroups(Group[] subgroups) {
         this.subgroups.clear();
         Collections.addAll(this.subgroups, subgroups);
     }
 
-    public void addSubgroup(GroupModel subgroup) {
+    public void addSubgroup(Group subgroup) {
         this.subgroups.add(subgroup);
     }
 

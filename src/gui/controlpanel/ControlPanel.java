@@ -1,6 +1,6 @@
 package gui.controlpanel;
 
-import data.models.UserModel;
+import data.models.identity.User;
 import gui.user.UserView;
 
 import javax.swing.*;
@@ -23,7 +23,7 @@ public class ControlPanel {
         ManagePanel managePanel = new ManagePanel();
         managePanel.setOnRefreshListener(sideViewPanel::refresh);
         managePanel.setOnOpenUserViewListener(() -> {
-            UserModel selectedUser = sideViewPanel.getSelectedUser();
+            User selectedUser = sideViewPanel.getSelectedUser();
 
             // Ignore if no user is selected.
             if (selectedUser == null)

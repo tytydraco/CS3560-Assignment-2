@@ -2,15 +2,15 @@ package gui.user;
 
 import data.models.Feed;
 import data.models.Tweet;
-import data.models.UserModel;
+import data.models.identity.User;
 
 import javax.swing.*;
 import java.util.Arrays;
 
 public class FeedPanel extends JPanel {
-    private final UserModel user;
+    private final User user;
 
-    public FeedPanel(UserModel user) {
+    public FeedPanel(User user) {
         this.user = user;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -26,7 +26,7 @@ public class FeedPanel extends JPanel {
         feed.addTweets(user.getFeed().getTweets());
 
         // Add tweets from our followings.
-        for (UserModel following : user.getFollowing()) {
+        for (User following : user.getFollowing()) {
             feed.addTweets(following.getFeed().getTweets());
         }
 
@@ -56,7 +56,7 @@ public class FeedPanel extends JPanel {
         repaint();
     }
 
-    public UserModel getUser() {
+    public User getUser() {
         return user;
     }
 }

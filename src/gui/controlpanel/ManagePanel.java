@@ -1,8 +1,8 @@
 package gui.controlpanel;
 
 import data.local.DataManager;
-import data.models.GroupModel;
-import data.models.UserModel;
+import data.models.identity.Group;
+import data.models.identity.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,8 +65,8 @@ public class ManagePanel extends JPanel {
     }
 
     private void addUser(String userId, String groupId) {
-        UserModel user = new UserModel(userId);
-        GroupModel group;
+        User user = new User(userId);
+        Group group;
 
         if (groupId.isEmpty()) {
             group = dataManager.getRootGroup();
@@ -80,8 +80,8 @@ public class ManagePanel extends JPanel {
     }
 
     private void addGroup(String groupId, String parentGroupId) {
-        GroupModel group = new GroupModel(groupId);
-        GroupModel parentGroup;
+        Group group = new Group(groupId);
+        Group parentGroup;
 
         if (parentGroupId.isEmpty()) {
             parentGroup = dataManager.getRootGroup();
