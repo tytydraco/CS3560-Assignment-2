@@ -30,7 +30,7 @@ public class FeedPanel extends JPanel {
             feed.addTweets(following.getFeed().getTweets());
         }
 
-        return Arrays.stream(feed.getTweets()).map(Tweet::getContent).toArray(String[]::new);
+        return Arrays.stream(feed.getTweets()).map(Tweet::getFormattedContent).toArray(String[]::new);
     }
 
     private void buildUI() {
@@ -44,7 +44,7 @@ public class FeedPanel extends JPanel {
         JButton addTweetButton = new JButton("Add Tweet");
         addTweetButton.addActionListener(actionEvent -> {
             String content = JOptionPane.showInputDialog("Content");
-            user.getFeed().addTweet(new Tweet(content));
+            user.getFeed().addTweet(new Tweet(content, user));
             refresh();
         });
         add(addTweetButton);
