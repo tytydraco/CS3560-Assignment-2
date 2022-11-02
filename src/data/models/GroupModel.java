@@ -1,29 +1,29 @@
 package data.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Holds the group information.
  */
 public class GroupModel {
+    private final ArrayList<UserModel> users = new ArrayList<>();
+    private final ArrayList<GroupModel> subgroups = new ArrayList<>();
     private String id;
-
-    private ArrayList<UserModel> users = new ArrayList<>();
-    private ArrayList<GroupModel> subgroups = new ArrayList<>();
 
     public GroupModel(String id) {
         this.id = id;
     }
 
-    public GroupModel(String id, ArrayList<UserModel> users) {
+    public GroupModel(String id, UserModel[] users) {
         this.id = id;
-        this.users = users;
+        setUsers(users);
     }
 
-    public GroupModel(String id, ArrayList<UserModel> users, ArrayList<GroupModel> subgroups) {
+    public GroupModel(String id, UserModel[] users, GroupModel[] subgroups) {
         this.id = id;
-        this.users = users;
-        this.subgroups = subgroups;
+        setUsers(users);
+        setSubgroups(subgroups);
     }
 
     public UserModel[] getUsers() {
@@ -31,8 +31,9 @@ public class GroupModel {
         return users.toArray(fixedUsers);
     }
 
-    public void setUsers(ArrayList<UserModel> users) {
-        this.users = users;
+    public void setUsers(UserModel[] users) {
+        this.users.clear();
+        Collections.addAll(this.users, users);
     }
 
     public void addUser(UserModel user) {
@@ -44,8 +45,9 @@ public class GroupModel {
         return subgroups.toArray(fixedSubgroups);
     }
 
-    public void setSubgroups(ArrayList<GroupModel> subgroups) {
-        this.subgroups = subgroups;
+    public void setSubgroups(GroupModel[] subgroups) {
+        this.subgroups.clear();
+        Collections.addAll(this.subgroups, subgroups);
     }
 
     public void addSubgroup(GroupModel subgroup) {

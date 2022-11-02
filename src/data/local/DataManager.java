@@ -1,7 +1,6 @@
 package data.local;
 
 import data.models.GroupModel;
-import data.models.Tweet;
 import data.models.UserModel;
 
 /**
@@ -23,12 +22,12 @@ public class DataManager {
         test1.addFollowing(test2);
         test1.addFollowing(test3);
 
-        test1.postTweet(new Tweet("Hello from test1!"));
-        test2.postTweet(new Tweet("Hello from test2!"));
-        test3.postTweet(new Tweet("Hello from test3!"));
-        test4.postTweet(new Tweet("Hello from test4!"));
-        test5.postTweet(new Tweet("Hello from test5!"));
-        test6.postTweet(new Tweet("Hello from test6!"));
+        //test1.getFeed().addTweet(new Tweet("Hello from test1!"));
+        //test2.getFeed().addTweet(new Tweet("Hello from test2!"));
+        //test3.getFeed().addTweet(new Tweet("Hello from test3!"));
+        //test4.getFeed().addTweet(new Tweet("Hello from test4!"));
+        //test5.getFeed().addTweet(new Tweet("Hello from test5!"));
+        //test6.getFeed().addTweet(new Tweet("Hello from test6!"));
 
         rootGroup = new GroupModel("Root");
         rootGroup.addUser(test1);

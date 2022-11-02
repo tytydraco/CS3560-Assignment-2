@@ -1,11 +1,11 @@
 package gui.user;
 
+import data.models.Feed;
 import data.models.Tweet;
 import data.models.UserModel;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 public class FeedPanel extends JPanel {
     private final UserModel user;
@@ -20,17 +20,17 @@ public class FeedPanel extends JPanel {
     }
 
     private String[] getUserFeedContent() {
-        ArrayList<Tweet> tweets = new ArrayList<>();
+        Feed feed = new Feed();
 
         // Add our own tweets.
-        Collections.addAll(tweets, user.getTweets());
+        feed.addTweets(user.getFeed().getTweets());
 
         // Add tweets from our followings.
         for (UserModel following : user.getFollowing()) {
-            Collections.addAll(tweets, following.getTweets());
+            feed.addTweets(following.getFeed().getTweets());
         }
 
-        return tweets.stream().map(Tweet::getContent).toArray(String[]::new);
+        return Arrays.stream(feed.getTweets()).map(Tweet::getContent).toArray(String[]::new);
     }
 
     private void buildUI() {
@@ -44,7 +44,7 @@ public class FeedPanel extends JPanel {
         JButton addTweetButton = new JButton("Add Tweet");
         addTweetButton.addActionListener(actionEvent -> {
             String content = JOptionPane.showInputDialog("Content");
-            user.postTweet(new Tweet(content));
+            user.getFeed().addTweet(new Tweet(content));
             refresh();
         });
         add(addTweetButton);

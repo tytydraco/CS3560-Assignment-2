@@ -1,19 +1,15 @@
 package data.models;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
  * Holds the user information.
  */
 public class UserModel {
+    private final Feed feed = new Feed();
     private String id;
-
     private HashSet<UserModel> followers = new HashSet<>();
-
     private HashSet<UserModel> following = new HashSet<>();
-
-    private ArrayList<Tweet> tweets = new ArrayList<>();
 
     public UserModel(String id) {
         this.id = id;
@@ -62,16 +58,7 @@ public class UserModel {
         user.removeFollower(this);
     }
 
-    public Tweet[] getTweets() {
-        Tweet[] fixedFeed = new Tweet[tweets.size()];
-        return tweets.toArray(fixedFeed);
-    }
-
-    public void setTweets(ArrayList<Tweet> tweets) {
-        this.tweets = tweets;
-    }
-
-    public void postTweet(Tweet tweet) {
-        tweets.add(tweet);
+    public Feed getFeed() {
+        return feed;
     }
 }
