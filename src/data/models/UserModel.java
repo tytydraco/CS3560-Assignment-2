@@ -54,10 +54,12 @@ public class UserModel {
 
     public void addFollowing(UserModel user) {
         this.following.add(user);
+        user.addFollower(this);
     }
 
     public void removeFollowing(UserModel user) {
         this.following.remove(user);
+        user.removeFollower(this);
     }
 
     public Tweet[] getFeed() {
