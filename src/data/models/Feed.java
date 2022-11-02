@@ -39,7 +39,11 @@ public class Feed {
     }
 
     private void notifyWatchers() {
-        watchers.forEach(Watcher::update);
+        Watcher[] fixedWatchers = new Watcher[watchers.size()];
+        fixedWatchers = watchers.toArray(fixedWatchers);
+        for (Watcher watcher : fixedWatchers) {
+            watcher.update();
+        }
     }
 
     /**

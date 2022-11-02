@@ -6,9 +6,11 @@ import data.models.identity.User;
 
 import javax.swing.*;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class FeedPanel extends JPanel {
     private final User user;
+    private final HashSet<User> followingWatching = new HashSet<>();
 
     public FeedPanel(User user) {
         this.user = user;
@@ -17,6 +19,27 @@ public class FeedPanel extends JPanel {
         setBorder(BorderFactory.createTitledBorder("Feed"));
 
         buildUI();
+    }
+
+    /**
+     * Register watchers on all following user feeds so that we can refresh if they are changed.
+     */
+    private void updateWatchers() {
+        for (User following : followingWatching) {
+            following.getFeed().removeWatcher(feedUpdateWatcher);
+        }
+
+        followingWatching.clear();
+        for (User following : user.getFollowing()) {
+            Feed feed = following.getFeed();
+            feed.addWatcher(feedUpdateWatcher);
+            followingWatching.add(following);
+        }
+
+        // Watch this user's feed as well.
+        Feed feed = user.getFeed();
+        feed.addWatcher(feedUpdateWatcher);
+        followingWatching.add(user);
     }
 
     private String[] getUserFeedContent() {
@@ -37,6 +60,8 @@ public class FeedPanel extends JPanel {
         removeAll();
 
         String[] feed = getUserFeedContent();
+        updateWatchers();
+
         JList<String> list = new JList<>(feed);
         JScrollPane listScroller = new JScrollPane(list);
         add(listScroller);
@@ -45,10 +70,9 @@ public class FeedPanel extends JPanel {
         addTweetButton.addActionListener(actionEvent -> {
             String content = JOptionPane.showInputDialog("Content");
             user.getFeed().addTweet(new Tweet(content, user));
-            refresh();
         });
         add(addTweetButton);
-    }
+    }    private final Feed.Watcher feedUpdateWatcher = this::refresh;
 
     public void refresh() {
         buildUI();
@@ -59,4 +83,8 @@ public class FeedPanel extends JPanel {
     public User getUser() {
         return user;
     }
+
+
+
+
 }
