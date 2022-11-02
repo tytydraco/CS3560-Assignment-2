@@ -5,6 +5,7 @@ import data.models.UserModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class FollowingPanel extends JPanel {
     private final UserModel user;
@@ -21,10 +22,16 @@ public class FollowingPanel extends JPanel {
         buildUI();
     }
 
+    private String[] getFollowingIds() {
+        UserModel[] following = user.getFollowing();
+        return Arrays.stream(following).map(UserModel::getId).toArray(String[]::new);
+    }
+
     private void buildUI() {
         removeAll();
 
-        JList<String> list = new JList<>(user.getFollowingIds());
+        String[] followingIds = getFollowingIds();
+        JList<String> list = new JList<>(followingIds);
         JScrollPane listScroller = new JScrollPane(list);
         add(listScroller);
 
@@ -44,10 +51,10 @@ public class FollowingPanel extends JPanel {
             return;
 
         // Add this user to our following list.
-        user.addFollowing(userId);
-        
+        user.addFollowing(followedUser);
+
         // Add ourselves to this user's followers list.
-        followedUser.addFollower(user.getId());
+        followedUser.addFollower(user);
     }
 
     public void refresh() {

@@ -20,11 +20,11 @@ public class DataManager {
         rootGroup.addUser(test2);
         rootGroup.addUser(test3);
 
-        test1.addFollowing("test2");
-        test2.addFollower("test1");
-        
-        test1.addFollowing("test3");
-        test3.addFollower("test1");
+        test1.addFollowing(test2);
+        test2.addFollower(test1);
+
+        test1.addFollowing(test3);
+        test3.addFollower(test1);
 
         GroupModel subgroup1 = new GroupModel("sub1");
         subgroup1.addUser(new UserModel("test4"));

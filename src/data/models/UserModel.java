@@ -10,9 +10,9 @@ public class UserModel {
     private String id;
 
     // TODO: track entire users, not IDs, removes need to search
-    private HashSet<String> followerIds = new HashSet<>();
+    private HashSet<UserModel> followers = new HashSet<>();
 
-    private HashSet<String> followingIds = new HashSet<>();
+    private HashSet<UserModel> following = new HashSet<>();
 
     private ArrayList<Tweet> feed = new ArrayList<>();
 
@@ -28,37 +28,37 @@ public class UserModel {
         this.id = id;
     }
 
-    public HashSet<String> getFollowerIds() {
-        return followerIds;
+    public HashSet<UserModel> getFollowers() {
+        return followers;
     }
 
-    public void setFollowerIds(HashSet<String> followerIds) {
-        this.followerIds = followerIds;
+    public void setFollowers(HashSet<UserModel> followers) {
+        this.followers = followers;
     }
 
-    public void addFollower(String id) {
-        this.followerIds.add(id);
+    public void addFollower(UserModel user) {
+        this.followers.add(user);
     }
 
-    public void removeFollower(String id) {
-        this.followerIds.remove(id);
+    public void removeFollower(UserModel user) {
+        this.followers.remove(user);
     }
 
-    public String[] getFollowingIds() {
-        String[] fixedFollowingIds = new String[followingIds.size()];
-        return followingIds.toArray(fixedFollowingIds);
+    public UserModel[] getFollowing() {
+        UserModel[] fixedFollowing = new UserModel[following.size()];
+        return following.toArray(fixedFollowing);
     }
 
-    public void setFollowingIds(HashSet<String> followingIds) {
-        this.followingIds = followingIds;
+    public void setFollowing(HashSet<UserModel> following) {
+        this.following = following;
     }
 
-    public void addFollowing(String id) {
-        this.followingIds.add(id);
+    public void addFollowing(UserModel user) {
+        this.following.add(user);
     }
 
-    public void removeFollowing(String id) {
-        this.followingIds.remove(id);
+    public void removeFollowing(UserModel user) {
+        this.following.remove(user);
     }
 
     public Tweet[] getFeed() {
