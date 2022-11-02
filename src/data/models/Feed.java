@@ -1,11 +1,14 @@
 package data.models;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.TreeSet;
 
 public class Feed {
     private final TreeSet<Tweet> tweets = new TreeSet<>(Comparator.comparing(Tweet::getDate));
+
+    private final ArrayList<Watcher> watchers = new ArrayList<>();
 
     public Tweet[] getTweets() {
         Tweet[] fixedTweets = new Tweet[tweets.size()];
@@ -14,14 +17,35 @@ public class Feed {
 
     public void setTweets(Tweet[] tweets) {
         this.tweets.clear();
-        Collections.addAll(this.tweets, tweets);
+        addTweets(tweets);
     }
 
     public void addTweet(Tweet tweet) {
         tweets.add(tweet);
+        notifyWatchers();
     }
 
     public void addTweets(Tweet[] tweets) {
         Collections.addAll(this.tweets, tweets);
+        notifyWatchers();
+    }
+
+    public void addWatcher(Watcher watcher) {
+        watchers.add(watcher);
+    }
+
+    public void removeWatcher(Watcher watcher) {
+        watchers.remove(watcher);
+    }
+
+    private void notifyWatchers() {
+        watchers.forEach(Watcher::update);
+    }
+
+    /**
+     * An observer of a feed that notifies when the feed changes.
+     */
+    public interface Watcher {
+        void update();
     }
 }
