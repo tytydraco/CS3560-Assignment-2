@@ -13,7 +13,7 @@ public class UserModel {
 
     private HashSet<UserModel> following = new HashSet<>();
 
-    private ArrayList<Tweet> feed = new ArrayList<>();
+    private ArrayList<Tweet> tweets = new ArrayList<>();
 
     public UserModel(String id) {
         this.id = id;
@@ -62,16 +62,16 @@ public class UserModel {
         user.removeFollower(this);
     }
 
-    public Tweet[] getFeed() {
-        Tweet[] fixedFeed = new Tweet[feed.size()];
-        return feed.toArray(fixedFeed);
+    public Tweet[] getTweets() {
+        Tweet[] fixedFeed = new Tweet[tweets.size()];
+        return tweets.toArray(fixedFeed);
     }
 
-    public void setFeed(ArrayList<Tweet> feed) {
-        this.feed = feed;
+    public void setTweets(ArrayList<Tweet> tweets) {
+        this.tweets = tweets;
     }
 
     public void postTweet(Tweet tweet) {
-        feed.add(tweet);
+        tweets.add(tweet);
     }
 }

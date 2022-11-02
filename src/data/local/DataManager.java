@@ -1,6 +1,7 @@
 package data.local;
 
 import data.models.GroupModel;
+import data.models.Tweet;
 import data.models.UserModel;
 
 /**
@@ -12,21 +13,32 @@ public class DataManager {
     private final GroupModel rootGroup;
 
     private DataManager() {
-        rootGroup = new GroupModel("Root");
         UserModel test1 = new UserModel("test1");
         UserModel test2 = new UserModel("test2");
         UserModel test3 = new UserModel("test3");
-        rootGroup.addUser(test1);
-        rootGroup.addUser(test2);
-        rootGroup.addUser(test3);
+        UserModel test4 = new UserModel("test4");
+        UserModel test5 = new UserModel("test5");
+        UserModel test6 = new UserModel("test6");
 
         test1.addFollowing(test2);
         test1.addFollowing(test3);
 
+        test1.postTweet(new Tweet("Hello from test1!"));
+        test2.postTweet(new Tweet("Hello from test2!"));
+        test3.postTweet(new Tweet("Hello from test3!"));
+        test4.postTweet(new Tweet("Hello from test4!"));
+        test5.postTweet(new Tweet("Hello from test5!"));
+        test6.postTweet(new Tweet("Hello from test6!"));
+
+        rootGroup = new GroupModel("Root");
+        rootGroup.addUser(test1);
+        rootGroup.addUser(test2);
+        rootGroup.addUser(test3);
+
         GroupModel subgroup1 = new GroupModel("sub1");
-        subgroup1.addUser(new UserModel("test4"));
-        subgroup1.addUser(new UserModel("test5"));
-        subgroup1.addUser(new UserModel("test6"));
+        subgroup1.addUser(test4);
+        subgroup1.addUser(test5);
+        subgroup1.addUser(test6);
         rootGroup.addSubgroup(subgroup1);
     }
 

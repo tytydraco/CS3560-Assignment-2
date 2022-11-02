@@ -4,7 +4,8 @@ import data.models.Tweet;
 import data.models.UserModel;
 
 import javax.swing.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class FeedPanel extends JPanel {
     private final UserModel user;
@@ -19,8 +20,17 @@ public class FeedPanel extends JPanel {
     }
 
     private String[] getUserFeedContent() {
-        Tweet[] tweets = user.getFeed();
-        return Arrays.stream(tweets).map(Tweet::getContent).toArray(String[]::new);
+        ArrayList<Tweet> tweets = new ArrayList<>();
+
+        // Add our own tweets.
+        Collections.addAll(tweets, user.getTweets());
+
+        // Add tweets from our followings.
+        for (UserModel following : user.getFollowing()) {
+            Collections.addAll(tweets, following.getTweets());
+        }
+
+        return tweets.stream().map(Tweet::getContent).toArray(String[]::new);
     }
 
     private void buildUI() {
