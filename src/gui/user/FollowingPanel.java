@@ -12,6 +12,8 @@ public class FollowingPanel extends JPanel {
 
     private final DataManager dataManager = DataManager.getInstance();
 
+    private Runnable onRefreshListener;
+
     public FollowingPanel(UserModel user) {
         this.user = user;
 
@@ -61,9 +63,16 @@ public class FollowingPanel extends JPanel {
         buildUI();
         validate();
         repaint();
+
+        if (onRefreshListener != null)
+            onRefreshListener.run();
     }
 
     public UserModel getUser() {
         return user;
+    }
+
+    public void setOnRefreshListener(Runnable onRefreshListener) {
+        this.onRefreshListener = onRefreshListener;
     }
 }

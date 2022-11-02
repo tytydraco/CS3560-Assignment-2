@@ -20,8 +20,12 @@ public class UserView {
         frame.setSize(400, 500);
         frame.setTitle(user.getId());
 
-        frame.add(new FollowingPanel(user), BorderLayout.NORTH);
-        frame.add(new FeedPanel(user));
+        FeedPanel feedPanel = new FeedPanel(user);
+        FollowingPanel followingPanel = new FollowingPanel(user);
+        followingPanel.setOnRefreshListener(feedPanel::refresh);
+
+        frame.add(followingPanel, BorderLayout.NORTH);
+        frame.add(feedPanel);
     }
 
     public void present() {
