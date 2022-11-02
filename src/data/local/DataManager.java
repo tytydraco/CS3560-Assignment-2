@@ -14,11 +14,17 @@ public class DataManager {
     private DataManager() {
         rootGroup = new GroupModel("Root");
         UserModel test1 = new UserModel("test1");
-        test1.addFollowing("test2");
-        test1.addFollowing("test3");
+        UserModel test2 = new UserModel("test2");
+        UserModel test3 = new UserModel("test3");
         rootGroup.addUser(test1);
-        rootGroup.addUser(new UserModel("test2"));
-        rootGroup.addUser(new UserModel("test3"));
+        rootGroup.addUser(test2);
+        rootGroup.addUser(test3);
+
+        test1.addFollowing("test2");
+        test2.addFollower("test1");
+        
+        test1.addFollowing("test3");
+        test3.addFollower("test1");
 
         GroupModel subgroup1 = new GroupModel("sub1");
         subgroup1.addUser(new UserModel("test4"));

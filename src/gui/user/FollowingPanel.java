@@ -1,5 +1,6 @@
 package gui.user;
 
+import data.local.DataManager;
 import data.models.UserModel;
 
 import javax.swing.*;
@@ -7,6 +8,8 @@ import java.awt.*;
 
 public class FollowingPanel extends JPanel {
     private final UserModel user;
+
+    private final DataManager dataManager = DataManager.getInstance();
 
     public FollowingPanel(UserModel user) {
         this.user = user;
@@ -28,10 +31,23 @@ public class FollowingPanel extends JPanel {
         JButton addFollowingButton = new JButton("Follow user");
         addFollowingButton.addActionListener(actionEvent -> {
             String userId = JOptionPane.showInputDialog("User ID");
-            user.addFollowing(userId);
+            followUser(userId);
             refresh();
         });
         add(addFollowingButton);
+    }
+
+    private void followUser(String userId) {
+        // Ensure this user exists.
+        UserModel followedUser = dataManager.findUserById(userId);
+        if (followedUser == null)
+            return;
+
+        // Add this user to our following list.
+        user.addFollowing(userId);
+        
+        // Add ourselves to this user's followers list.
+        followedUser.addFollower(user.getId());
     }
 
     public void refresh() {
