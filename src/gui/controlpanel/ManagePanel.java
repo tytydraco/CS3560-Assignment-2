@@ -1,8 +1,10 @@
 package gui.controlpanel;
 
 import data.local.DataManager;
+import data.models.Tweet;
 import data.models.identity.Group;
 import data.models.identity.User;
+import visitors.TweetGoodnessVisitor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,6 +64,29 @@ public class ManagePanel extends JPanel {
                 onOpenUserViewListener.run();
         });
         add(openUserViewButton);
+
+        JButton checkGoodnessButton = new JButton("Check goodness");
+        checkGoodnessButton.addActionListener(actionEvent -> {
+            double totalGoodness = 0;
+            int tweetCount = 0;
+
+            TweetGoodnessVisitor tweetGoodnessVisitor = new TweetGoodnessVisitor();
+
+            User[] allUsers = dataManager.getAllUsers();
+            for (User user : allUsers) {
+                for (Tweet tweet : user.getFeed().getTweets()) {
+                    double goodness = tweet.accept(tweetGoodnessVisitor);
+                    totalGoodness += goodness;
+                    tweetCount += 1;
+                }
+            }
+
+            if (tweetCount != 0)
+                totalGoodness /= tweetCount;
+
+            JOptionPane.showMessageDialog(null, "Total goodness: " + totalGoodness * 100 + "%");
+        });
+        add(checkGoodnessButton);
     }
 
     private void addUser(String userId, String groupId) {

@@ -1,15 +1,15 @@
 package data.models;
 
 import data.models.identity.User;
+import visitors.TweetGoodnessVisitable;
+import visitors.TweetGoodnessVisitor;
 
 import java.util.Date;
 
 /**
  * A Tweet containing a message.
  */
-public class Tweet {
-    // TODO: add timestamp, sort tweets by timestamp in [FeedPanel].
-
+public class Tweet implements TweetGoodnessVisitable {
     private String content;
 
     private Date date;
@@ -54,5 +54,10 @@ public class Tweet {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public double accept(TweetGoodnessVisitor visitor) {
+        return visitor.visit(this);
     }
 }

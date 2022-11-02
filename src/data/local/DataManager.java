@@ -3,6 +3,9 @@ package data.local;
 import data.models.identity.Group;
 import data.models.identity.User;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * A singleton that holds and manages users and groups.
  */
@@ -93,5 +96,25 @@ public class DataManager {
     public User findUserById(String id) {
         Group rootGroup = getRootGroup();
         return recursivelyFindUserById(id, rootGroup);
+    }
+
+    public User[] getAllUsersForGroup(Group group) {
+        ArrayList<User> users = new ArrayList<>();
+
+        User[] groupUsers = group.getUsers();
+
+        if (groupUsers.length > 0)
+            Collections.addAll(users, group.getUsers());
+
+        for (Group subgroup : group.getSubgroups()) {
+            Collections.addAll(users, getAllUsersForGroup(subgroup));
+        }
+
+        User[] fixedUsers = new User[users.size()];
+        return users.toArray(fixedUsers);
+    }
+
+    public User[] getAllUsers() {
+        return getAllUsersForGroup(rootGroup);
     }
 }
