@@ -60,4 +60,24 @@ public class DataManager {
         GroupModel rootGroup = getRootGroup();
         return recursivelyFindGroupById(id, rootGroup);
     }
+
+    private UserModel recursivelyFindUserById(String id, GroupModel root) {
+        for (UserModel user : root.getUsers()) {
+            if (user.getId().equals(id))
+                return user;
+        }
+
+        for (GroupModel subgroup : root.getSubgroups()) {
+            UserModel result = recursivelyFindUserById(id, subgroup);
+            if (result != null)
+                return result;
+        }
+
+        return null;
+    }
+
+    public UserModel findUserById(String id) {
+        GroupModel rootGroup = getRootGroup();
+        return recursivelyFindUserById(id, rootGroup);
+    }
 }
