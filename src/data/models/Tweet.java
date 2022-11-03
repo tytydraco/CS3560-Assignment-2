@@ -7,53 +7,20 @@ import visitors.Visitor;
 import java.util.Date;
 
 /**
- * A Tweet containing a message.
+ * A concrete implementation of the ITweet class with support for visitation and formatting.
  */
-public class Tweet implements Visitable {
-    private String content;
-
-    private Date date;
-
-    private User user;
-
+public class Tweet extends ITweet implements Visitable {
     public Tweet(String content, User user) {
-        this.content = content;
-        this.user = user;
-        this.date = new Date();
+        super(content, user);
     }
 
     public Tweet(String content, User user, Date date) {
-        this.content = content;
-        this.user = user;
-        this.date = date;
+        super(content, user, date);
     }
 
+    @Override
     public String getFormattedContent() {
-        return "[" + getDate() + "] " + user.getId() + ": " + getContent();
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+        return "[" + getDate() + "] " + getUser().getId() + ": " + getContent();
     }
 
     @Override

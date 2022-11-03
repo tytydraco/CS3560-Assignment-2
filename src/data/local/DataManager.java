@@ -8,41 +8,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * A singleton that holds and manages users and groups.
+ * A concrete singleton implementation of the IDataManager interface.
  */
 public class DataManager implements IDataManager {
     private static DataManager instance;
 
-    private final Group rootGroup;
+    private final Group rootGroup = new Group("Root");
 
     private DataManager() {
-        User test1 = new User("test1");
-        User test2 = new User("test2");
-        User test3 = new User("test3");
-        User test4 = new User("test4");
-        User test5 = new User("test5");
-        User test6 = new User("test6");
-
-        test1.addFollowing(test2);
-        test1.addFollowing(test3);
-
-        //test1.getFeed().addTweet(new Tweet("Hello from test1!"));
-        //test2.getFeed().addTweet(new Tweet("Hello from test2!"));
-        //test3.getFeed().addTweet(new Tweet("Hello from test3!"));
-        //test4.getFeed().addTweet(new Tweet("Hello from test4!"));
-        //test5.getFeed().addTweet(new Tweet("Hello from test5!"));
-        //test6.getFeed().addTweet(new Tweet("Hello from test6!"));
-
-        rootGroup = new Group("Root");
-        rootGroup.addUser(test1);
-        rootGroup.addUser(test2);
-        rootGroup.addUser(test3);
-
-        Group subgroup1 = new Group("sub1");
-        subgroup1.addUser(test4);
-        subgroup1.addUser(test5);
-        subgroup1.addUser(test6);
-        rootGroup.addSubgroup(subgroup1);
     }
 
     /**

@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.TreeSet;
 
+/**
+ * An observable feed of Tweets, sorted by their post date.
+ */
 public class Feed extends Watchable {
     private final TreeSet<Tweet> tweets = new TreeSet<>(Comparator.comparing(Tweet::getDate));
 

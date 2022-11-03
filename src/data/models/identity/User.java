@@ -43,11 +43,15 @@ public class User extends Identifiable {
 
     public void addFollowing(User user) {
         this.following.add(user);
+
+        // Add ourselves as a follower to the target user.
         user.addFollower(this);
     }
 
     public void removeFollowing(User user) {
         this.following.remove(user);
+
+        // Remove ourselves as a follower to the target user.
         user.removeFollower(this);
     }
 
