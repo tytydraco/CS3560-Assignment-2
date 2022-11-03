@@ -31,12 +31,19 @@ public class ManagePanel extends JPanel {
                     "Group ID", groupIdField,
             };
 
-            JOptionPane.showConfirmDialog(null, request, "Add User", JOptionPane.OK_CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, request, "Add User", JOptionPane.QUESTION_MESSAGE);
 
-            addUser(userIdField.getText(), groupIdField.getText());
+            String userId = userIdField.getText();
+            String groupId = groupIdField.getText();
 
-            if (onRefreshListener != null)
-                onRefreshListener.run();
+            if (dataManager.findUserById(userId) == null) {
+                addUser(userId, groupId);
+
+                if (onRefreshListener != null)
+                    onRefreshListener.run();
+            } else {
+                JOptionPane.showMessageDialog(null, "User with that ID already exists.");
+            }
         });
         add(addUserButton);
 
@@ -49,12 +56,19 @@ public class ManagePanel extends JPanel {
                     "Parent Group ID", parentGroupIdField,
             };
 
-            JOptionPane.showConfirmDialog(null, request, "Add Group", JOptionPane.OK_CANCEL_OPTION);
+            JOptionPane.showMessageDialog(null, request, "Add Group", JOptionPane.QUESTION_MESSAGE);
 
-            addGroup(groupIdField.getText(), parentGroupIdField.getText());
+            String groupId = groupIdField.getText();
+            String parentGroupId = parentGroupIdField.getText();
 
-            if (onRefreshListener != null)
-                onRefreshListener.run();
+            if (dataManager.findGroupById(groupId) == null) {
+                addGroup(groupId, parentGroupId);
+
+                if (onRefreshListener != null)
+                    onRefreshListener.run();
+            } else {
+                JOptionPane.showMessageDialog(null, "Group with that ID already exists.");
+            }
         });
         add(addGroupButton);
 
@@ -100,6 +114,9 @@ public class ManagePanel extends JPanel {
     }
 
     private void addUser(String userId, String groupId) {
+        if (userId.isEmpty())
+            return;
+
         User user = new User(userId);
         Group group;
 
@@ -115,6 +132,9 @@ public class ManagePanel extends JPanel {
     }
 
     private void addGroup(String groupId, String parentGroupId) {
+        if (groupId.isEmpty())
+            return;
+
         Group group = new Group(groupId);
         Group parentGroup;
 

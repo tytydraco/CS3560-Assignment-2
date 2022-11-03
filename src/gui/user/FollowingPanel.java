@@ -40,8 +40,13 @@ public class FollowingPanel extends JPanel {
         JButton addFollowingButton = new JButton("Follow user");
         addFollowingButton.addActionListener(actionEvent -> {
             String userId = JOptionPane.showInputDialog("User ID");
-            followUser(userId);
-            refresh();
+
+            if (dataManager.findUserById(userId) != null) {
+                followUser(userId);
+                refresh();
+            } else {
+                JOptionPane.showMessageDialog(null, "No user with that ID exists.");
+            }
         });
         add(addFollowingButton);
     }
