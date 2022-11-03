@@ -1,5 +1,7 @@
 package data.models;
 
+import util.Watcher;
+
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class WatchableFeed extends Feed {
@@ -27,12 +29,5 @@ public class WatchableFeed extends Feed {
 
     private void notifyWatchers() {
         watchers.forEach(Watcher::update);
-    }
-
-    /**
-     * An observer of a feed that notifies when the feed changes.
-     */
-    public interface Watcher {
-        void update();
     }
 }
