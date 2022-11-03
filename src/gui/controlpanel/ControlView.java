@@ -9,8 +9,8 @@ import java.awt.*;
 /**
  * The main control panel.
  */
-public class ControlPanel extends JFrame {
-    public ControlPanel() {
+public class ControlView extends JFrame {
+    public ControlView() {
         setResizable(false);
         setSize(800, 500);
 
