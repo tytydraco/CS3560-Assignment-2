@@ -4,9 +4,10 @@ import data.models.Tweet;
 
 import java.util.Arrays;
 
-public class TweetGoodnessVisitor {
+public class TweetGoodnessVisitor implements Visitor {
     static final String[] GOOD_WORDS = {"good", "happy", "smile", "nice", "cool", "kind"};
 
+    @Override
     public boolean visit(Tweet tweet) {
         String content = tweet.getContent();
         String[] words = content.split(" ");

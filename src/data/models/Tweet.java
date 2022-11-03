@@ -1,15 +1,15 @@
 package data.models;
 
 import data.models.identity.User;
-import visitors.TweetGoodnessVisitable;
-import visitors.TweetGoodnessVisitor;
+import visitors.Visitable;
+import visitors.Visitor;
 
 import java.util.Date;
 
 /**
  * A Tweet containing a message.
  */
-public class Tweet implements TweetGoodnessVisitable {
+public class Tweet implements Visitable {
     private String content;
 
     private Date date;
@@ -57,7 +57,7 @@ public class Tweet implements TweetGoodnessVisitable {
     }
 
     @Override
-    public boolean accept(TweetGoodnessVisitor visitor) {
+    public boolean accept(Visitor visitor) {
         return visitor.visit(this);
     }
 }
