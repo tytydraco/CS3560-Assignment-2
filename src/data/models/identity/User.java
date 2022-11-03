@@ -1,6 +1,6 @@
 package data.models.identity;
 
-import data.models.WatchableFeed;
+import data.models.Feed;
 
 import java.util.HashSet;
 
@@ -8,7 +8,7 @@ import java.util.HashSet;
  * Holds the user information.
  */
 public class User extends Identifiable {
-    private final WatchableFeed feed = new WatchableFeed();
+    private final Feed feed = new Feed();
     private HashSet<User> followers = new HashSet<>();
     private HashSet<User> following = new HashSet<>();
 
@@ -51,7 +51,7 @@ public class User extends Identifiable {
         user.removeFollower(this);
     }
 
-    public WatchableFeed getFeed() {
+    public Feed getFeed() {
         return feed;
     }
 }

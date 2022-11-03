@@ -2,7 +2,6 @@ package gui.user;
 
 import data.models.Feed;
 import data.models.Tweet;
-import data.models.WatchableFeed;
 import data.models.identity.User;
 import visitors.TweetLengthValidatorVisitor;
 
@@ -40,13 +39,13 @@ public class FeedPanel extends JPanel {
         removeAllWatchers();
 
         for (User following : user.getFollowing()) {
-            WatchableFeed feed = following.getFeed();
+            Feed feed = following.getFeed();
             feed.addWatcher(this::refresh);
             followingWatching.add(following);
         }
 
         // Watch this user's feed as well.
-        WatchableFeed feed = user.getFeed();
+        Feed feed = user.getFeed();
         feed.addWatcher(this::refresh);
         followingWatching.add(user);
     }

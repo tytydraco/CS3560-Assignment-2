@@ -1,23 +1,9 @@
-package data.models;
-
-import util.Watcher;
+package util;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class WatchableFeed extends Feed {
+public abstract class Watchable {
     private final CopyOnWriteArrayList<Watcher> watchers = new CopyOnWriteArrayList<>();
-
-    @Override
-    public void addTweet(Tweet tweet) {
-        super.addTweet(tweet);
-        notifyWatchers();
-    }
-
-    @Override
-    public void addTweets(Tweet[] tweets) {
-        super.addTweets(tweets);
-        notifyWatchers();
-    }
 
     public void addWatcher(Watcher watcher) {
         watchers.add(watcher);
@@ -27,7 +13,7 @@ public class WatchableFeed extends Feed {
         watchers.remove(watcher);
     }
 
-    private void notifyWatchers() {
+    public void notifyWatchers() {
         watchers.forEach(Watcher::update);
     }
 }
