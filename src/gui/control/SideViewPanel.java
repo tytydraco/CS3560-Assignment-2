@@ -1,4 +1,4 @@
-package gui.controlpanel;
+package gui.control;
 
 import data.local.DataManager;
 import data.models.identity.Group;

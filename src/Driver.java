@@ -1,4 +1,4 @@
-import gui.controlpanel.ControlView;
+import gui.control.ControlView;
 
 /**
  * Launches the admin control panel.

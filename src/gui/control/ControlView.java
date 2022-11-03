@@ -1,4 +1,4 @@
-package gui.controlpanel;
+package gui.control;
 
 import data.models.identity.User;
 import gui.user.UserView;
