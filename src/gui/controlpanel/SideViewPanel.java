@@ -14,7 +14,6 @@ import java.awt.*;
  * Presents the tree view of users and groups.
  */
 public class SideViewPanel extends JPanel {
-
     private final DataManager dataManager = DataManager.getInstance();
     private JTree tree;
 
@@ -36,7 +35,7 @@ public class SideViewPanel extends JPanel {
                 super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
                 if (value instanceof DefaultMutableTreeNode) {
                     Object userValue = ((DefaultMutableTreeNode) value).getUserObject();
-                    
+
                     // Use common parent class to get ID.
                     if (userValue instanceof Identifiable)
                         setText(((Identifiable) userValue).getId());

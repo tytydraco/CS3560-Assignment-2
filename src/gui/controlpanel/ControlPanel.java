@@ -9,16 +9,13 @@ import java.awt.*;
 /**
  * The main control panel.
  */
-public class ControlPanel {
-    private final JFrame frame;
-
+public class ControlPanel extends JFrame {
     public ControlPanel() {
-        frame = new JFrame();
-        frame.setResizable(false);
-        frame.setSize(800, 500);
+        setResizable(false);
+        setSize(800, 500);
 
         SideViewPanel sideViewPanel = new SideViewPanel();
-        frame.add(sideViewPanel, BorderLayout.WEST);
+        add(sideViewPanel, BorderLayout.WEST);
 
         ManagePanel managePanel = new ManagePanel();
         managePanel.setOnRefreshListener(sideViewPanel::refresh);
@@ -32,10 +29,10 @@ public class ControlPanel {
             UserView userView = new UserView(selectedUser);
             userView.present();
         });
-        frame.add(managePanel, BorderLayout.EAST);
+        add(managePanel, BorderLayout.EAST);
     }
 
     public void present() {
-        frame.setVisible(true);
+        setVisible(true);
     }
 }
