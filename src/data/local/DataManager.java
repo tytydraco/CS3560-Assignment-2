@@ -104,7 +104,7 @@ public class DataManager {
         User[] groupUsers = group.getUsers();
 
         if (groupUsers.length > 0)
-            Collections.addAll(users, group.getUsers());
+            Collections.addAll(users, groupUsers);
 
         for (Group subgroup : group.getSubgroups()) {
             Collections.addAll(users, getAllUsersForGroup(subgroup));
@@ -116,5 +116,23 @@ public class DataManager {
 
     public User[] getAllUsers() {
         return getAllUsersForGroup(rootGroup);
+    }
+
+    public Group[] getAllGroupsForGroup(Group group) {
+        ArrayList<Group> groups = new ArrayList<>();
+        groups.add(group);
+
+        Group[] subgroups = group.getSubgroups();
+
+        for (Group subgroup : subgroups) {
+            Collections.addAll(groups, getAllGroupsForGroup(subgroup));
+        }
+
+        Group[] fixedGroups = new Group[groups.size()];
+        return groups.toArray(fixedGroups);
+    }
+
+    public Group[] getAllGroups() {
+        return getAllGroupsForGroup(rootGroup);
     }
 }

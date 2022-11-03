@@ -89,6 +89,15 @@ public class ManagePanel extends JPanel {
             JOptionPane.showMessageDialog(null, "Total goodness: " + totalGoodness * 100 + "%");
         });
         add(checkGoodnessButton);
+
+        JButton statsButton = new JButton("Show stats");
+        statsButton.addActionListener(actionEvent -> {
+            Group[] allGroups = dataManager.getAllGroups();
+            User[] allUsers = dataManager.getAllUsers();
+
+            JOptionPane.showMessageDialog(null, "Total groups: " + allGroups.length + "\nTotal users: " + allUsers.length);
+        });
+        add(statsButton);
     }
 
     private void addUser(String userId, String groupId) {
