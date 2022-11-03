@@ -4,7 +4,13 @@ import data.models.Tweet;
 
 import java.util.Arrays;
 
-public class TweetGoodnessVisitor implements Visitor {
+/**
+ * A concrete Visitor that checks if a Tweet is "good" or not.
+ */
+public class TweetGoodnessVisitor implements TweetVisitor {
+    /**
+     * Marked "good" words that makes a Tweet "good".
+     */
     static final String[] GOOD_WORDS = {"good", "happy", "smile", "nice", "cool", "kind"};
 
     @Override

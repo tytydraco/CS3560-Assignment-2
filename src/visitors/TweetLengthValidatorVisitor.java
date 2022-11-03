@@ -2,7 +2,10 @@ package visitors;
 
 import data.models.Tweet;
 
-public class TweetLengthValidatorVisitor implements Visitor {
+/**
+ * A concrete Visitor that checks if a Tweet is "good" or not.
+ */
+public class TweetLengthValidatorVisitor implements TweetVisitor {
     /**
      * Maximum tweet length characters.
      */

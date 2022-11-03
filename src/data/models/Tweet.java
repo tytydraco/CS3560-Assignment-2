@@ -1,15 +1,15 @@
 package data.models;
 
 import data.models.identity.User;
-import visitors.Visitable;
-import visitors.Visitor;
+import visitors.TweetVisitable;
+import visitors.TweetVisitor;
 
 import java.util.Date;
 
 /**
  * A concrete implementation of the ITweet class with support for visitation and formatting.
  */
-public class Tweet extends ITweet implements Visitable {
+public class Tweet extends ITweet implements TweetVisitable {
     public Tweet(String content, User user) {
         super(content, user);
     }
@@ -24,7 +24,7 @@ public class Tweet extends ITweet implements Visitable {
     }
 
     @Override
-    public boolean accept(Visitor visitor) {
+    public boolean accept(TweetVisitor visitor) {
         return visitor.visit(this);
     }
 }
