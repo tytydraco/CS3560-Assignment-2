@@ -1,5 +1,5 @@
 package visitors;
 
 public interface TweetGoodnessVisitable {
-    double accept(TweetGoodnessVisitor visitor);
+    boolean accept(TweetGoodnessVisitor visitor);
 }

@@ -57,7 +57,7 @@ public class Tweet implements TweetGoodnessVisitable {
     }
 
     @Override
-    public double accept(TweetGoodnessVisitor visitor) {
+    public boolean accept(TweetGoodnessVisitor visitor) {
         return visitor.visit(this);
     }
 }

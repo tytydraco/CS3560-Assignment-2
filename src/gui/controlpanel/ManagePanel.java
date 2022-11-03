@@ -75,8 +75,10 @@ public class ManagePanel extends JPanel {
             User[] allUsers = dataManager.getAllUsers();
             for (User user : allUsers) {
                 for (Tweet tweet : user.getFeed().getTweets()) {
-                    double goodness = tweet.accept(tweetGoodnessVisitor);
-                    totalGoodness += goodness;
+                    boolean good = tweet.accept(tweetGoodnessVisitor);
+                    if (good)
+                        totalGoodness++;
+
                     tweetCount += 1;
                 }
             }
