@@ -72,15 +72,13 @@ public class ManagePanel extends JPanel {
 
             TweetGoodnessVisitor tweetGoodnessVisitor = new TweetGoodnessVisitor();
 
-            User[] allUsers = dataManager.getAllUsers();
-            for (User user : allUsers) {
-                for (Tweet tweet : user.getFeed().getTweets()) {
-                    boolean good = tweet.accept(tweetGoodnessVisitor);
-                    if (good)
-                        totalGoodness++;
+            Tweet[] allTweets = dataManager.getAllTweets();
+            for (Tweet tweet : allTweets) {
+                boolean good = tweet.accept(tweetGoodnessVisitor);
+                if (good)
+                    totalGoodness++;
 
-                    tweetCount += 1;
-                }
+                tweetCount += 1;
             }
 
             if (tweetCount != 0)
@@ -94,8 +92,9 @@ public class ManagePanel extends JPanel {
         statsButton.addActionListener(actionEvent -> {
             Group[] allGroups = dataManager.getAllGroups();
             User[] allUsers = dataManager.getAllUsers();
+            Tweet[] allTweets = dataManager.getAllTweets();
 
-            JOptionPane.showMessageDialog(null, "Total groups: " + allGroups.length + "\nTotal users: " + allUsers.length);
+            JOptionPane.showMessageDialog(null, "Total groups: " + allGroups.length + "\nTotal users: " + allUsers.length + "\nTotal tweets: " + allTweets.length);
         });
         add(statsButton);
     }

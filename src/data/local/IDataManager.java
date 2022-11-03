@@ -1,5 +1,6 @@
 package data.local;
 
+import data.models.Tweet;
 import data.models.identity.Group;
 import data.models.identity.User;
 
@@ -13,4 +14,6 @@ public interface IDataManager {
     User[] getAllUsers();
 
     Group[] getAllGroups();
+
+    Tweet[] getAllTweets();
 }

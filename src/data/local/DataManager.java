@@ -1,5 +1,6 @@
 package data.local;
 
+import data.models.Tweet;
 import data.models.identity.Group;
 import data.models.identity.User;
 
@@ -139,5 +140,18 @@ public class DataManager implements IDataManager {
     @Override
     public Group[] getAllGroups() {
         return recursivelyGetAllGroups(rootGroup);
+    }
+
+    @Override
+    public Tweet[] getAllTweets() {
+        ArrayList<Tweet> tweets = new ArrayList<>();
+
+        User[] allUsers = getAllUsers();
+        for (User user : allUsers) {
+            Collections.addAll(tweets, user.getFeed().getTweets());
+        }
+
+        Tweet[] fixedTweets = new Tweet[tweets.size()];
+        return tweets.toArray(fixedTweets);
     }
 }
