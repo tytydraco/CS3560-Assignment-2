@@ -9,7 +9,7 @@ import java.util.Collections;
 /**
  * A singleton that holds and manages users and groups.
  */
-public class DataManager {
+public class DataManager implements IDataManager {
     private static DataManager instance;
 
     private final Group rootGroup;
@@ -55,6 +55,7 @@ public class DataManager {
         return instance;
     }
 
+    @Override
     public Group getRootGroup() {
         return rootGroup;
     }
@@ -73,6 +74,7 @@ public class DataManager {
         return null;
     }
 
+    @Override
     public Group findGroupById(String id) {
         Group rootGroup = getRootGroup();
         return recursivelyFindGroupById(id, rootGroup);
@@ -93,12 +95,13 @@ public class DataManager {
         return null;
     }
 
+    @Override
     public User findUserById(String id) {
         Group rootGroup = getRootGroup();
         return recursivelyFindUserById(id, rootGroup);
     }
 
-    public User[] getAllUsersForGroup(Group group) {
+    private User[] recursivelyGetAllUsers(Group group) {
         ArrayList<User> users = new ArrayList<>();
 
         User[] groupUsers = group.getUsers();
@@ -107,32 +110,34 @@ public class DataManager {
             Collections.addAll(users, groupUsers);
 
         for (Group subgroup : group.getSubgroups()) {
-            Collections.addAll(users, getAllUsersForGroup(subgroup));
+            Collections.addAll(users, recursivelyGetAllUsers(subgroup));
         }
 
         User[] fixedUsers = new User[users.size()];
         return users.toArray(fixedUsers);
     }
 
+    @Override
     public User[] getAllUsers() {
-        return getAllUsersForGroup(rootGroup);
+        return recursivelyGetAllUsers(rootGroup);
     }
 
-    public Group[] getAllGroupsForGroup(Group group) {
+    private Group[] recursivelyGetAllGroups(Group group) {
         ArrayList<Group> groups = new ArrayList<>();
         groups.add(group);
 
         Group[] subgroups = group.getSubgroups();
 
         for (Group subgroup : subgroups) {
-            Collections.addAll(groups, getAllGroupsForGroup(subgroup));
+            Collections.addAll(groups, recursivelyGetAllGroups(subgroup));
         }
 
         Group[] fixedGroups = new Group[groups.size()];
         return groups.toArray(fixedGroups);
     }
 
+    @Override
     public Group[] getAllGroups() {
-        return getAllGroupsForGroup(rootGroup);
+        return recursivelyGetAllGroups(rootGroup);
     }
 }
