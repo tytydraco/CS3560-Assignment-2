@@ -3,6 +3,7 @@ package gui.user;
 import data.models.Feed;
 import data.models.Tweet;
 import data.models.identity.User;
+import visitors.TweetLengthValidatorVisitor;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -76,7 +77,13 @@ public class FeedPanel extends JPanel {
         JButton addTweetButton = new JButton("Add Tweet");
         addTweetButton.addActionListener(actionEvent -> {
             String content = JOptionPane.showInputDialog("Content");
-            user.getFeed().addTweet(new Tweet(content, user));
+            Tweet tweet = new Tweet(content, user);
+            boolean isValidLength = tweet.accept(new TweetLengthValidatorVisitor());
+            
+            if (isValidLength)
+                user.getFeed().addTweet(tweet);
+            else
+                JOptionPane.showMessageDialog(null, "Tweet must be less than " + TweetLengthValidatorVisitor.MAX_TWEET_LENGTH + " characters long.");
         });
         add(addTweetButton);
     }
@@ -90,6 +97,4 @@ public class FeedPanel extends JPanel {
     public User getUser() {
         return user;
     }
-
-
 }
