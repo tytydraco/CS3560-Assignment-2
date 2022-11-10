@@ -2,13 +2,14 @@ package data.models.identity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Holds the group information.
  */
 public class Group extends Identifiable {
-    private final ArrayList<User> users = new ArrayList<>();
-    private final ArrayList<Group> subgroups = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
+    private final List<Group> subgroups = new ArrayList<>();
 
     public Group(String id) {
         super(id);
@@ -26,8 +27,7 @@ public class Group extends Identifiable {
     }
 
     public User[] getUsers() {
-        User[] fixedUsers = new User[users.size()];
-        return users.toArray(fixedUsers);
+        return users.toArray(User[]::new);
     }
 
     public void setUsers(User[] users) {
@@ -40,8 +40,7 @@ public class Group extends Identifiable {
     }
 
     public Group[] getSubgroups() {
-        Group[] fixedSubgroups = new Group[subgroups.size()];
-        return subgroups.toArray(fixedSubgroups);
+        return subgroups.toArray(Group[]::new);
     }
 
     public void setSubgroups(Group[] subgroups) {

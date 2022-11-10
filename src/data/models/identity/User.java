@@ -3,24 +3,25 @@ package data.models.identity;
 import data.models.Feed;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Holds the user information.
  */
 public class User extends Identifiable {
     private final Feed feed = new Feed();
-    private HashSet<User> followers = new HashSet<>();
-    private HashSet<User> following = new HashSet<>();
+    private Set<User> followers = new HashSet<>();
+    private Set<User> following = new HashSet<>();
 
     public User(String id) {
         super(id);
     }
 
-    public HashSet<User> getFollowers() {
+    public Set<User> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(HashSet<User> followers) {
+    public void setFollowers(Set<User> followers) {
         this.followers = followers;
     }
 
@@ -33,11 +34,10 @@ public class User extends Identifiable {
     }
 
     public User[] getFollowing() {
-        User[] fixedFollowing = new User[following.size()];
-        return following.toArray(fixedFollowing);
+        return following.toArray(User[]::new);
     }
 
-    public void setFollowing(HashSet<User> following) {
+    public void setFollowing(Set<User> following) {
         this.following = following;
     }
 

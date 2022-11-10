@@ -13,8 +13,7 @@ public class Feed extends Watchable {
     private final TreeSet<Tweet> tweets = new TreeSet<>(Comparator.comparing(Tweet::getDate));
 
     public Tweet[] getTweets() {
-        Tweet[] fixedTweets = new Tweet[tweets.size()];
-        return tweets.toArray(fixedTweets);
+        return tweets.toArray(Tweet[]::new);
     }
 
     public void setTweets(Tweet[] tweets) {

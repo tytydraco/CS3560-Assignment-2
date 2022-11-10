@@ -8,10 +8,11 @@ import visitors.TweetLengthValidatorVisitor;
 import javax.swing.*;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 public class FeedPanel extends JPanel {
     private final User user;
-    private final HashSet<User> followingWatching = new HashSet<>();
+    private final Set<User> followingWatching = new HashSet<>();
 
     public FeedPanel(User user) {
         this.user = user;

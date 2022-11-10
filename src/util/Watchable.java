@@ -1,5 +1,6 @@
 package util;
 
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * This class is concurrency-safe.
  */
 public abstract class Watchable {
-    private final CopyOnWriteArrayList<Watcher> watchers = new CopyOnWriteArrayList<>();
+    private final List<Watcher> watchers = new CopyOnWriteArrayList<>();
 
     /**
      * Add a Watcher to the list of Watchers.

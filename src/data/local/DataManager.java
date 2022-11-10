@@ -6,6 +6,7 @@ import data.models.identity.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * A concrete singleton implementation of the IDataManager interface.
@@ -76,7 +77,7 @@ public class DataManager implements IDataManager {
     }
 
     private User[] recursivelyGetAllUsers(Group group) {
-        ArrayList<User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         User[] groupUsers = group.getUsers();
 
@@ -87,8 +88,7 @@ public class DataManager implements IDataManager {
             Collections.addAll(users, recursivelyGetAllUsers(subgroup));
         }
 
-        User[] fixedUsers = new User[users.size()];
-        return users.toArray(fixedUsers);
+        return users.toArray(User[]::new);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class DataManager implements IDataManager {
     }
 
     private Group[] recursivelyGetAllGroups(Group group) {
-        ArrayList<Group> groups = new ArrayList<>();
+        List<Group> groups = new ArrayList<>();
         groups.add(group);
 
         Group[] subgroups = group.getSubgroups();
@@ -106,8 +106,7 @@ public class DataManager implements IDataManager {
             Collections.addAll(groups, recursivelyGetAllGroups(subgroup));
         }
 
-        Group[] fixedGroups = new Group[groups.size()];
-        return groups.toArray(fixedGroups);
+        return groups.toArray(Group[]::new);
     }
 
     @Override
@@ -117,14 +116,13 @@ public class DataManager implements IDataManager {
 
     @Override
     public Tweet[] getAllTweets() {
-        ArrayList<Tweet> tweets = new ArrayList<>();
+        List<Tweet> tweets = new ArrayList<>();
 
         User[] allUsers = getAllUsers();
         for (User user : allUsers) {
             Collections.addAll(tweets, user.getFeed().getTweets());
         }
 
-        Tweet[] fixedTweets = new Tweet[tweets.size()];
-        return tweets.toArray(fixedTweets);
+        return tweets.toArray(Tweet[]::new);
     }
 }
