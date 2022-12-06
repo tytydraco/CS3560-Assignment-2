@@ -111,18 +111,29 @@ public class ManagePanel extends JPanel {
             User[] allUsers = dataManager.getAllUsers();
             Group[] allGroups = dataManager.getAllGroups();
 
+            boolean usersValid;
+            boolean usersHadSpaces = false;
             Set<String> uniqueUserIds = new HashSet<>();
             for (User user : allUsers) {
-                uniqueUserIds.add(user.getId());
-            }
+                String id = user.getId();
+                uniqueUserIds.add(id);
 
+                if (id.contains(" "))
+                    usersHadSpaces = true;
+            }
+            usersValid = uniqueUserIds.size() == allUsers.length && !usersHadSpaces;
+
+            boolean groupsValid;
+            boolean groupsHadSpaces = false;
             Set<String> uniqueGroupIds = new HashSet<>();
             for (Group group : allGroups) {
-                uniqueGroupIds.add(group.getId());
-            }
+                String id = group.getId();
+                uniqueGroupIds.add(id);
 
-            boolean usersValid = uniqueUserIds.size() == allUsers.length;
-            boolean groupsValid = uniqueGroupIds.size() == allGroups.length;
+                if (id.contains(" "))
+                    groupsHadSpaces = true;
+            }
+            groupsValid = uniqueGroupIds.size() == allGroups.length && !groupsHadSpaces;
 
             JOptionPane.showMessageDialog(null, "User validity: " + usersValid + "\nGroups validity: " + groupsValid);
         });
