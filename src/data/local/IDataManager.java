@@ -39,4 +39,9 @@ public interface IDataManager {
      * @return A flat array of all Tweets from all Users part of the root Group.
      */
     Tweet[] getAllTweets();
+
+    /**
+     * @return The user that updated their feed most recently.
+     */
+    User getMostRecentlyUpdatedUser();
 }

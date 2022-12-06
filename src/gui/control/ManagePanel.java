@@ -127,6 +127,18 @@ public class ManagePanel extends JPanel {
             JOptionPane.showMessageDialog(null, "User validity: " + usersValid + "\nGroups validity: " + groupsValid);
         });
         add(validateButton);
+
+        JButton getLatestUser = new JButton("Get most recent user");
+        getLatestUser.addActionListener(actionEvent -> {
+            User mostRecentUser = dataManager.getMostRecentlyUpdatedUser();
+
+            if (mostRecentUser == null) {
+                JOptionPane.showMessageDialog(null, "No users!");
+            } else {
+                JOptionPane.showMessageDialog(null, "User ID: " + mostRecentUser.getId() + "\nUpdate time: " + mostRecentUser.getFeed().getLastUpdateTimeMs());
+            }
+        });
+        add(getLatestUser);
     }
 
     private void addUser(String userId, String groupId) {

@@ -4,9 +4,7 @@ import data.models.Tweet;
 import data.models.identity.Group;
 import data.models.identity.User;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * A concrete singleton implementation of the IDataManager interface.
@@ -124,5 +122,17 @@ public class DataManager implements IDataManager {
         }
 
         return tweets.toArray(Tweet[]::new);
+    }
+
+    @Override
+    public User getMostRecentlyUpdatedUser() {
+        User[] users = getAllUsers();
+
+        if (users.length == 0) {
+            return null;
+        }
+
+        Arrays.sort(users, Comparator.comparing(user -> user.getFeed().getLastUpdateTimeMs()));
+        return users[users.length - 1];
     }
 }
