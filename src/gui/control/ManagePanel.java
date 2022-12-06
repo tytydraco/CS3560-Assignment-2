@@ -8,6 +8,8 @@ import visitors.TweetGoodnessVisitor;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Presents the configuration view.
@@ -103,6 +105,28 @@ public class ManagePanel extends JPanel {
             JOptionPane.showMessageDialog(null, "Total groups: " + allGroups.length + "\nTotal users: " + allUsers.length + "\nTotal tweets: " + allTweets.length);
         });
         add(statsButton);
+
+        JButton validateButton = new JButton("Validate IDs");
+        validateButton.addActionListener(actionEvent -> {
+            User[] allUsers = dataManager.getAllUsers();
+            Group[] allGroups = dataManager.getAllGroups();
+
+            Set<String> uniqueUserIds = new HashSet<>();
+            for (User user : allUsers) {
+                uniqueUserIds.add(user.getId());
+            }
+
+            Set<String> uniqueGroupIds = new HashSet<>();
+            for (Group group : allGroups) {
+                uniqueGroupIds.add(group.getId());
+            }
+
+            boolean usersValid = uniqueUserIds.size() == allUsers.length;
+            boolean groupsValid = uniqueGroupIds.size() == allGroups.length;
+
+            JOptionPane.showMessageDialog(null, "User validity: " + usersValid + "\nGroups validity: " + groupsValid);
+        });
+        add(validateButton);
     }
 
     private void addUser(String userId, String groupId) {
