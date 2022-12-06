@@ -36,14 +36,10 @@ public class ManagePanel extends JPanel {
             String userId = userIdField.getText();
             String groupId = groupIdField.getText();
 
-            if (dataManager.findUserById(userId) == null) {
-                addUser(userId, groupId);
+            addUser(userId, groupId);
 
-                if (onRefreshListener != null)
-                    onRefreshListener.run();
-            } else {
-                JOptionPane.showMessageDialog(null, "User with that ID already exists.");
-            }
+            if (onRefreshListener != null)
+                onRefreshListener.run();
         });
         add(addUserButton);
 
