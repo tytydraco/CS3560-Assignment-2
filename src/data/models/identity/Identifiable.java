@@ -5,9 +5,16 @@ package data.models.identity;
  */
 public abstract class Identifiable {
     private String id;
+    private long creationTimeMs;
 
     public Identifiable(String id) {
         this.id = id;
+        this.creationTimeMs = System.currentTimeMillis();
+    }
+
+    public Identifiable(String id, long creationTimeMs) {
+        this.id = id;
+        this.creationTimeMs = creationTimeMs;
     }
 
     public String getId() {
@@ -16,5 +23,13 @@ public abstract class Identifiable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public long getCreationTimeMs() {
+        return creationTimeMs;
+    }
+
+    public void setCreationTimeMs(long creationTimeMs) {
+        this.creationTimeMs = creationTimeMs;
     }
 }
