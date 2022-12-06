@@ -24,12 +24,8 @@ public class UserView extends JFrame {
         FollowingPanel followingPanel = new FollowingPanel(user);
         followingPanel.setOnRefreshListener(feedPanel::refresh);
 
-        long creationTimeMs = user.getCreationTimeMs();
-        JTextArea timestampText = new JTextArea("User creation time: " + creationTimeMs);
-
         add(followingPanel, BorderLayout.NORTH);
         add(feedPanel);
-        add(timestampText, BorderLayout.SOUTH);
 
         // Ensure that when we close this view, we remove the watchers from the user view.
         addWindowListener(new WindowListener() {

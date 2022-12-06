@@ -12,6 +12,8 @@ import java.util.TreeSet;
 public class Feed extends Watchable {
     private final TreeSet<Tweet> tweets = new TreeSet<>(Comparator.comparing(Tweet::getDate));
 
+    private long lastUpdateTimeMs = -1;
+
     public Tweet[] getTweets() {
         return tweets.toArray(Tweet[]::new);
     }
@@ -23,11 +25,21 @@ public class Feed extends Watchable {
 
     public void addTweet(Tweet tweet) {
         tweets.add(tweet);
+        lastUpdateTimeMs = System.currentTimeMillis();
         notifyWatchers();
     }
 
     public void addTweets(Tweet[] tweets) {
         Collections.addAll(this.tweets, tweets);
+        lastUpdateTimeMs = System.currentTimeMillis();
         notifyWatchers();
+    }
+
+    public long getLastUpdateTimeMs() {
+        return lastUpdateTimeMs;
+    }
+
+    public void setLastUpdateTimeMs(long lastUpdateTimeMs) {
+        this.lastUpdateTimeMs = lastUpdateTimeMs;
     }
 }

@@ -87,6 +87,11 @@ public class FeedPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Tweet must be less than " + TweetLengthValidatorVisitor.MAX_TWEET_LENGTH + " characters long.");
         });
         add(addTweetButton);
+
+        long creationTimeMs = user.getCreationTimeMs();
+        long lastUpdateTimeMs = user.getFeed().getLastUpdateTimeMs();
+        JTextArea timestampText = new JTextArea("User creation time: " + creationTimeMs + "\nLast update time: " + lastUpdateTimeMs);
+        add(timestampText);
     }
 
     public void refresh() {
